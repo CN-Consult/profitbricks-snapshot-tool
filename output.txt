@@ -1,0 +1,1441 @@
+HTTP/1.1 200 OK
+Date: Thu, 27 Oct 2016 12:30:58 GMT
+Server: ""
+Pragma: No-cache
+Cache-Control: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 UTC
+X-RateLimit-Remaining: 299
+X-RateLimit-Burst: 300
+X-RateLimit-Limit: 600
+Content-Type: application/vnd.profitbricks.collection+json
+Vary: Accept-Encoding
+Strict-Transport-Security: max-age=15768000
+Transfer-Encoding: chunked
+
+{
+  "id" : "snapshots",
+  "type" : "collection",
+  "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots",
+  "items" : [ {
+    "id" : "d7748aeb-fc63-4ffd-b0ec-0fe5ba1f6a12",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/d7748aeb-fc63-4ffd-b0ec-0fe5ba1f6a12",
+    "metadata" : {
+      "createdDate" : "2016-10-21T08:08:34Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "50f20c60990e86b46d6194ff8ac3fcae",
+      "lastModifiedDate" : "2016-10-21T08:08:34Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "Webserver Disk01-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"Webserver Disk01\" in Data Center \"Services\"",
+      "location" : "de/fra",
+      "size" : 32,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "e64a1a29-dfd1-43d4-a517-d9d598ff62ca",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/e64a1a29-dfd1-43d4-a517-d9d598ff62ca",
+    "metadata" : {
+      "createdDate" : "2016-10-21T08:07:20Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "94ef48a8b7f04e4ee4091ef7c2eb30dd",
+      "lastModifiedDate" : "2016-10-21T08:07:20Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "dbregio-BOOT-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"dbregio-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 15,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "270a1026-5bfd-4cec-ac60-8b7abf8fe174",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/270a1026-5bfd-4cec-ac60-8b7abf8fe174",
+    "metadata" : {
+      "createdDate" : "2016-10-21T08:07:54Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "6c1726541e2ca9a4105b976c64837441",
+      "lastModifiedDate" : "2016-10-21T08:07:54Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sbbc-BOOT-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"sbbc-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 15,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "4ef8acaf-be1a-4c42-8d3b-3129065b67bf",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/4ef8acaf-be1a-4c42-8d3b-3129065b67bf",
+    "metadata" : {
+      "createdDate" : "2016-10-21T08:08:04Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "b2fcee5384359873160f7d596c421d23",
+      "lastModifiedDate" : "2016-10-21T08:08:04Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "SBBI BOOT-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"SBBI BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 50,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : true,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "ce06df4a-d3dd-4bff-bc7a-c134c477b1be",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/ce06df4a-d3dd-4bff-bc7a-c134c477b1be",
+    "metadata" : {
+      "createdDate" : "2016-10-21T08:08:00Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "734067e85fdfa346c868cb8eca18d232",
+      "lastModifiedDate" : "2016-10-21T08:08:00Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sbbc-Syncdata-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"sbbc-Syncdata\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 285,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "e7a214fc-fd90-45af-a2a0-6523735e859f",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/e7a214fc-fd90-45af-a2a0-6523735e859f",
+    "metadata" : {
+      "createdDate" : "2016-10-21T08:07:31Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "f264fa2c0ee9c9e20c8be8ba9fa6958b",
+      "lastModifiedDate" : "2016-10-21T08:07:31Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "dbregio-Syncdata2-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"dbregio-Syncdata2\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 104,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "aa9722d5-e2b9-4e11-8741-5006224b76a2",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/aa9722d5-e2b9-4e11-8741-5006224b76a2",
+    "metadata" : {
+      "createdDate" : "2016-10-21T08:07:25Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "37d49bb2826043b18e2889731dee7fe0",
+      "lastModifiedDate" : "2016-10-21T08:07:25Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "dbregio-Syncdata-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"dbregio-Syncdata\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 30,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "4f0d7143-c0b1-4211-bed5-393e3e60e1cd",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/4f0d7143-c0b1-4211-bed5-393e3e60e1cd",
+    "metadata" : {
+      "createdDate" : "2016-10-21T08:06:47Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "639acf3c752a169773a711e96d917d77",
+      "lastModifiedDate" : "2016-10-21T08:06:47Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sync-Syncdata2-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"sync-Syncdata2\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 102,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "0ef9b6cf-b9fb-4551-9ff9-4dc8890817b4",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/0ef9b6cf-b9fb-4551-9ff9-4dc8890817b4",
+    "metadata" : {
+      "createdDate" : "2016-10-21T08:06:36Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "d4fb71682bdab60743375dc0dec5e2a7",
+      "lastModifiedDate" : "2016-10-21T08:06:36Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sync-Syncdata1-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"sync-Syncdata1\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 250,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "1590fcdb-76f5-431e-bbec-432b18b128b1",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/1590fcdb-76f5-431e-bbec-432b18b128b1",
+    "metadata" : {
+      "createdDate" : "2016-10-21T07:53:07Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "1dbe43bec7989e53b723023b9abc8c48",
+      "lastModifiedDate" : "2016-10-21T07:53:07Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sync-BOOT-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"sync-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 48,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "8fd70e74-10c2-4e11-a2f7-be47d72015ff",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/8fd70e74-10c2-4e11-a2f7-be47d72015ff",
+    "metadata" : {
+      "createdDate" : "2016-10-21T07:52:58Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "6b4f4b7687e5049a7d7283495a5ee9bf",
+      "lastModifiedDate" : "2016-10-21T07:52:58Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "services-BOOT-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"services-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 30,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "5be41ab9-43ac-49b5-ad41-97b81eb8d573",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/5be41ab9-43ac-49b5-ad41-97b81eb8d573",
+    "metadata" : {
+      "createdDate" : "2016-10-21T07:52:53Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "b5ee87af57c3ec19bab0a93ef3157277",
+      "lastModifiedDate" : "2016-10-21T07:52:53Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "rail-DATA-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"rail-DATA\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 10,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "7f6602cf-6e2d-4b7c-b4cf-4152ad7e1939",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/7f6602cf-6e2d-4b7c-b4cf-4152ad7e1939",
+    "metadata" : {
+      "createdDate" : "2016-10-21T07:52:48Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "534b55420225f0330941b426ded9add9",
+      "lastModifiedDate" : "2016-10-21T07:52:48Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "rail-BOOT-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"rail-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 100,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "aab44c45-d874-4aaf-8a61-8dbdd98f8dcf",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/aab44c45-d874-4aaf-8a61-8dbdd98f8dcf",
+    "metadata" : {
+      "createdDate" : "2016-10-21T07:52:43Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "a567949c7aea554a8d3ccdd5ac9c54b4",
+      "lastModifiedDate" : "2016-10-21T07:52:43Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "test-BOOT-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"test-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 30,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : true,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "f8238d94-9ba3-472d-8195-d3e8df65ba52",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/f8238d94-9ba3-472d-8195-d3e8df65ba52",
+    "metadata" : {
+      "createdDate" : "2016-10-21T07:52:38Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "df90b11b2cf64f140eba1ab8d622a9aa",
+      "lastModifiedDate" : "2016-10-21T07:52:38Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sbbcd-BOOT-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"sbbcd-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 64,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "ab55f849-6b55-4d7f-9026-7ffb8e61b749",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/ab55f849-6b55-4d7f-9026-7ffb8e61b749",
+    "metadata" : {
+      "createdDate" : "2016-10-21T07:52:27Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "da75a0e29a7fe4ee72e07ef8cf1cfb16",
+      "lastModifiedDate" : "2016-10-21T07:52:27Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "FileCloud Disk1-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"FileCloud Disk1\" in Data Center \"CN-Consult\"",
+      "location" : "de/fra",
+      "size" : 202,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "9db0ce1d-8b74-4978-bac5-26bf4ba1b727",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/9db0ce1d-8b74-4978-bac5-26bf4ba1b727",
+    "metadata" : {
+      "createdDate" : "2016-10-21T07:52:22Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "372119b44ea50e51bbda4f0ba5c9fec2",
+      "lastModifiedDate" : "2016-10-21T07:52:22Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "FreeIPA Disk1-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"FreeIPA Disk1\" in Data Center \"CN-Consult\"",
+      "location" : "de/fra",
+      "size" : 20,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "be603e22-c454-41d1-9983-405154e4d2b5",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/be603e22-c454-41d1-9983-405154e4d2b5",
+    "metadata" : {
+      "createdDate" : "2016-10-21T07:52:16Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "8cf6ec0c8c937a93a3d8dbe1ed2ef05e",
+      "lastModifiedDate" : "2016-10-21T07:52:16Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "Mailserver Disk1-Snapshot-10/21/2016",
+      "description" : "Erzeugt von \"Mailserver Disk1\" in Data Center \"CN-Consult\"",
+      "location" : "de/fra",
+      "size" : 100,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "76f2bdcd-45c2-4c86-a6a4-303cb1e8405d",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/76f2bdcd-45c2-4c86-a6a4-303cb1e8405d",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:59:45Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "e0ad10678397828f670b829576aaa422",
+      "lastModifiedDate" : "2016-10-14T11:59:45Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sync-Syncdata1-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"sync-Syncdata1\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 250,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "b10f53c9-e758-4a84-9f78-bf23ecdfbbf5",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/b10f53c9-e758-4a84-9f78-bf23ecdfbbf5",
+    "metadata" : {
+      "createdDate" : "2016-10-14T12:00:42Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "388142f535c1392a3f478f668eae57de",
+      "lastModifiedDate" : "2016-10-14T12:00:42Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "SBBI BOOT-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"SBBI BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 50,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : true,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "4fb13a21-2eda-4e4c-b0ec-dd64c69643bc",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/4fb13a21-2eda-4e4c-b0ec-dd64c69643bc",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:59:00Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "96761bf6608bc8a57adc6a1d82aa31a6",
+      "lastModifiedDate" : "2016-10-14T11:59:00Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sync-BOOT-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"sync-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 48,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "49bc63cc-0f2a-4d90-be2c-cf36ca6f9d84",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/49bc63cc-0f2a-4d90-be2c-cf36ca6f9d84",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:57:47Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "0beb604604650680f3f0fb8db1f0bc15",
+      "lastModifiedDate" : "2016-10-14T11:57:47Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "Mailserver Disk1-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"Mailserver Disk1\" in Data Center \"CN-Consult\"",
+      "location" : "de/fra",
+      "size" : 100,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "406de786-c15c-4e39-bb56-1be13ce89a0f",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/406de786-c15c-4e39-bb56-1be13ce89a0f",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:58:35Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "60c7d5b205228e30e94b99737d3b6dd4",
+      "lastModifiedDate" : "2016-10-14T11:58:35Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sbbcd-BOOT-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"sbbcd-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 64,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "229825c5-5aad-4953-81c8-1bd32c1c7dc5",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/229825c5-5aad-4953-81c8-1bd32c1c7dc5",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:58:55Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "9ce77f5506f072229c2f6517cce3ee5d",
+      "lastModifiedDate" : "2016-10-14T11:58:55Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "services-BOOT-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"services-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 30,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "f656878a-0ba1-4adc-a684-8e0f9129199e",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/f656878a-0ba1-4adc-a684-8e0f9129199e",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:58:41Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "af1b962166731fd06140a97e55b4ddad",
+      "lastModifiedDate" : "2016-10-14T11:58:41Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "test-BOOT-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"test-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 30,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : true,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "6f1301ef-ff7e-461f-a6c8-22b125735744",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/6f1301ef-ff7e-461f-a6c8-22b125735744",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:59:54Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "ef4dfc28385273e2783565e1800276b6",
+      "lastModifiedDate" : "2016-10-14T11:59:54Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sync-Syncdata2-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"sync-Syncdata2\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 102,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "859b0906-c37e-4448-a8b6-aea2fe06df3f",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/859b0906-c37e-4448-a8b6-aea2fe06df3f",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:58:46Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "758f405cecb235657b0f6c0c153ceadc",
+      "lastModifiedDate" : "2016-10-14T11:58:46Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "rail-BOOT-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"rail-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 100,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "bf1a14fd-013e-44b4-967f-3e8cd9d2dcd9",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/bf1a14fd-013e-44b4-967f-3e8cd9d2dcd9",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:58:50Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "98907086b2111001db5e6b6087e24fe9",
+      "lastModifiedDate" : "2016-10-14T11:58:50Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "rail-DATA-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"rail-DATA\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 10,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "28710c15-a133-4c2f-b69d-cc52b4a052a8",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/28710c15-a133-4c2f-b69d-cc52b4a052a8",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:58:20Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "6b83667239c4b706b7150352ab2a84e5",
+      "lastModifiedDate" : "2016-10-14T11:58:20Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "backup1 DATA1-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"backup1 DATA1\" in Data Center \"Backup\"",
+      "location" : "de/fra",
+      "size" : 50,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "989c27de-c32f-43ed-aeba-3df00047376f",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/989c27de-c32f-43ed-aeba-3df00047376f",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:58:15Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "0758a7e009ac5863e0488108e66185e5",
+      "lastModifiedDate" : "2016-10-14T11:58:15Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "backup1 DATA2-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"backup1 DATA2\" in Data Center \"Backup\"",
+      "location" : "de/fra",
+      "size" : 50,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "f8f3972c-bfba-4f5a-9853-8c61bcb0b272",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/f8f3972c-bfba-4f5a-9853-8c61bcb0b272",
+    "metadata" : {
+      "createdDate" : "2016-10-14T12:00:22Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "ef14f27a7cb1f682ead4c7c76971a5ba",
+      "lastModifiedDate" : "2016-10-14T12:00:22Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "dbregio-Syncdata-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"dbregio-Syncdata\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 30,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "90517449-ab40-46d4-9697-56216ad9cc5c",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/90517449-ab40-46d4-9697-56216ad9cc5c",
+    "metadata" : {
+      "createdDate" : "2016-10-14T12:00:17Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "debec1bc692fc36bd77ade12526db6e0",
+      "lastModifiedDate" : "2016-10-14T12:00:17Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "dbregio-BOOT-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"dbregio-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 15,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "18194fd4-9fe5-4f0f-b366-8ee2145ac387",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/18194fd4-9fe5-4f0f-b366-8ee2145ac387",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:57:51Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "99da32d1b3ed4e622de592efbc7e9ccf",
+      "lastModifiedDate" : "2016-10-14T11:57:51Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "FreeIPA Disk1-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"FreeIPA Disk1\" in Data Center \"CN-Consult\"",
+      "location" : "de/fra",
+      "size" : 20,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "e8b6c345-5219-4cdd-a8f2-c6fec353814f",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/e8b6c345-5219-4cdd-a8f2-c6fec353814f",
+    "metadata" : {
+      "createdDate" : "2016-10-14T12:00:32Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "2ed816acff418c57a90923e2a05ed9b7",
+      "lastModifiedDate" : "2016-10-14T12:00:32Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sbbc-BOOT-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"sbbc-BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 15,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "32fa8fd8-2f5b-423b-bf0d-07f9a3e49654",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/32fa8fd8-2f5b-423b-bf0d-07f9a3e49654",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:58:10Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "bb436c7ee86e03d4bd5d8260f05b5cff",
+      "lastModifiedDate" : "2016-10-14T11:58:10Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "backup1 SYS-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"backup1 SYS\" in Data Center \"Backup\"",
+      "location" : "de/fra",
+      "size" : 5,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "a07c7a64-76d9-42f6-ae07-88785a9b791b",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/a07c7a64-76d9-42f6-ae07-88785a9b791b",
+    "metadata" : {
+      "createdDate" : "2016-10-14T12:00:38Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "ef30fff5cca8312bf16adb09e88e89df",
+      "lastModifiedDate" : "2016-10-14T12:00:38Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sbbc-Syncdata-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"sbbc-Syncdata\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 285,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "9d8d5542-de28-44f3-91e5-8238c220da64",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/9d8d5542-de28-44f3-91e5-8238c220da64",
+    "metadata" : {
+      "createdDate" : "2016-10-14T12:00:27Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "81324df6f440a8d0774fc56cccc86d75",
+      "lastModifiedDate" : "2016-10-14T12:00:27Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "dbregio-Syncdata2-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"dbregio-Syncdata2\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 104,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "bcd73372-f4f7-4379-bfc0-114346263de8",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/bcd73372-f4f7-4379-bfc0-114346263de8",
+    "metadata" : {
+      "createdDate" : "2016-10-14T11:57:56Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "3fd3e2af631c85fd41387d89edc18b0f",
+      "lastModifiedDate" : "2016-10-14T11:57:56Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "FileCloud Disk1-Snapshot-10/14/2016",
+      "description" : "Erzeugt von \"FileCloud Disk1\" in Data Center \"CN-Consult\"",
+      "location" : "de/fra",
+      "size" : 202,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "0f4d2089-951e-4ce4-b7a0-0cc05f3c24b1",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/0f4d2089-951e-4ce4-b7a0-0cc05f3c24b1",
+    "metadata" : {
+      "createdDate" : "2016-09-13T09:54:20Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "dce24832bb87c62379b43637fc68c6f1",
+      "lastModifiedDate" : "2016-09-13T11:25:24Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "Before Upgrad FileCloud Disk1-Snapshot-09/13/2016",
+      "description" : "Before Upgrade \"FileCloud Disk1\" in Data Center \"CN-Consult\"",
+      "location" : "de/fra",
+      "size" : 202,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "788db5c3-ac92-4dc4-a724-8f3c53e025e5",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/788db5c3-ac92-4dc4-a724-8f3c53e025e5",
+    "metadata" : {
+      "createdDate" : "2016-09-09T10:49:28Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "c566ff96d2563d912f16ec7a43aa9945",
+      "lastModifiedDate" : "2016-09-09T10:49:28Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "DevOps Disk1-Snapshot-09/09/2016",
+      "description" : "Created from \"DevOps Disk1\" in Data Center \"CN-Consult\"",
+      "location" : "de/fra",
+      "size" : 62,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "3167301c-755b-4948-b02a-040510197692",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/3167301c-755b-4948-b02a-040510197692",
+    "metadata" : {
+      "createdDate" : "2016-08-31T08:42:23Z",
+      "createdBy" : "jens.stahl@cn-consult.eu",
+      "etag" : "da6b6c48dd9f32926b8cca79348fe61e",
+      "lastModifiedDate" : "2016-08-31T08:42:23Z",
+      "lastModifiedBy" : "jens.stahl@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "Mailserver Disk1-Snapshot-08/31/2016",
+      "description" : "Created from \"Mailserver Disk1\" in Data Center \"CN-Consult\"",
+      "location" : "de/fra",
+      "size" : 100,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "c5abf83b-9ebd-4559-9ed5-c604e11fe246",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/c5abf83b-9ebd-4559-9ed5-c604e11fe246",
+    "metadata" : {
+      "createdDate" : "2016-08-12T14:44:17Z",
+      "createdBy" : "daniel.haas@cn-consult.eu",
+      "etag" : "97a3bfc34efa62fe11290a5757b7d3f8",
+      "lastModifiedDate" : "2016-08-12T14:44:17Z",
+      "lastModifiedBy" : "daniel.haas@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "Webserver Disk01-Snapshot-08/12/2016",
+      "description" : "Erzeugt von \"Webserver Disk01\" in Data Center \"Services\"",
+      "location" : "de/fra",
+      "size" : 32,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "33ab8335-9f1d-415e-b56b-fa24c65e3f71",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/33ab8335-9f1d-415e-b56b-fa24c65e3f71",
+    "metadata" : {
+      "createdDate" : "2016-07-29T20:43:32Z",
+      "createdBy" : "daniel.haas@cn-consult.eu",
+      "etag" : "f218a198eb4950879f156aa1feea9395",
+      "lastModifiedDate" : "2016-07-29T20:43:32Z",
+      "lastModifiedBy" : "daniel.haas@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "Mailserver Disk1-Snapshot-07/29/2016",
+      "description" : "Erzeugt von \"Mailserver Disk1\" in Data Center \"CN-Consult\"",
+      "location" : "de/fra",
+      "size" : 100,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : true,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "47d4c6e8-40a4-430a-986d-e61cb10345cf",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/47d4c6e8-40a4-430a-986d-e61cb10345cf",
+    "metadata" : {
+      "createdDate" : "2016-07-26T08:32:00Z",
+      "createdBy" : "daniel.haas@cn-consult.eu",
+      "etag" : "d9f379a5e71eccaeda93da620a1c10a5",
+      "lastModifiedDate" : "2016-07-26T08:32:00Z",
+      "lastModifiedBy" : "daniel.haas@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "Syncdata2-Snapshot-07/26/2016",
+      "description" : "Created from \"Syncdata2\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 102,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "OTHER"
+    }
+  }, {
+    "id" : "74d02a7d-c710-489d-8ace-8db6c5d1c8e6",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/74d02a7d-c710-489d-8ace-8db6c5d1c8e6",
+    "metadata" : {
+      "createdDate" : "2016-06-17T12:07:43Z",
+      "createdBy" : "daniel.haas@cn-consult.eu",
+      "etag" : "1097e4bee0ab2fd06e7daaea63e2b901",
+      "lastModifiedDate" : "2016-06-17T12:07:43Z",
+      "lastModifiedBy" : "daniel.haas@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "Webserver Disk01-Snapshot-06/17/2016",
+      "description" : "Erzeugt von \"Webserver Disk01\" in Data Center \"Services\"",
+      "location" : "de/fra",
+      "size" : 32,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "14473ceb-078c-49cc-bbc0-200161900469",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/14473ceb-078c-49cc-bbc0-200161900469",
+    "metadata" : {
+      "createdDate" : "2015-12-15T15:12:36Z",
+      "createdBy" : "daniel.haas@cn-consult.eu",
+      "etag" : "b95c35458835e84aef1db58ab2f21064",
+      "lastModifiedDate" : "2015-12-15T15:12:36Z",
+      "lastModifiedBy" : "daniel.haas@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sbbc-initial-snapshot",
+      "description" : "Created from \"BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 15,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "571ee1ab-155b-47fc-b927-b6ae53eba2f0",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/571ee1ab-155b-47fc-b927-b6ae53eba2f0",
+    "metadata" : {
+      "createdDate" : "2014-12-10T13:03:21Z",
+      "createdBy" : "daniel.haas@cn-consult.eu",
+      "etag" : "5ad6e855d78f71c91c674fc84831fab4",
+      "lastModifiedDate" : "2014-12-10T13:03:21Z",
+      "lastModifiedBy" : "daniel.haas@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "Syncdata-Snapshot-12/10/2014",
+      "description" : "Erzeugt von \"Syncdata\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 250,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "91a55c4a-50df-403d-b3f9-1709e0e3f131",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/91a55c4a-50df-403d-b3f9-1709e0e3f131",
+    "metadata" : {
+      "createdDate" : "2014-12-10T13:03:15Z",
+      "createdBy" : "daniel.haas@cn-consult.eu",
+      "etag" : "7ec30de78c3b35890099abb21bce3763",
+      "lastModifiedDate" : "2014-12-10T13:03:15Z",
+      "lastModifiedBy" : "daniel.haas@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "sync.diloc.de HD1-Snapshot-12/10/2014",
+      "description" : "Erzeugt von \"sync.diloc.de HD1\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 48,
+      "cpuHotPlug" : true,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : true,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : true,
+      "discVirtioHotUnplug" : true,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  }, {
+    "id" : "30636ff3-5f1f-4009-a714-a59f88619f03",
+    "type" : "snapshot",
+    "href" : "https://api.profitbricks.com/cloudapi/v3/snapshots/30636ff3-5f1f-4009-a714-a59f88619f03",
+    "metadata" : {
+      "createdDate" : "2015-12-15T15:11:44Z",
+      "createdBy" : "daniel.haas@cn-consult.eu",
+      "etag" : "b5a01b7572b925f1f4f7596b619cf262",
+      "lastModifiedDate" : "2015-12-15T15:11:44Z",
+      "lastModifiedBy" : "daniel.haas@cn-consult.eu",
+      "state" : "AVAILABLE"
+    },
+    "properties" : {
+      "name" : "dbregio-initial-snapshot",
+      "description" : "Created from \"BOOT\" in Data Center \"DiLoc\"",
+      "location" : "de/fkb",
+      "size" : 15,
+      "cpuHotPlug" : false,
+      "cpuHotUnplug" : false,
+      "ramHotPlug" : false,
+      "ramHotUnplug" : false,
+      "nicHotPlug" : false,
+      "nicHotUnplug" : false,
+      "discVirtioHotPlug" : false,
+      "discVirtioHotUnplug" : false,
+      "discScsiHotPlug" : false,
+      "discScsiHotUnplug" : false,
+      "licenceType" : "LINUX"
+    }
+  } ]
+}

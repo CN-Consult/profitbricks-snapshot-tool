@@ -1,0 +1,89 @@
+<?php
+/**
+ * @file
+ * @version 0.1
+ * @copyright 2017 CN-Consult GmbH
+ * @author Jens Stahl <jens.stahl@cn-consult.eu>
+ *
+ * License: Please check the LICENSE file for more information.
+ */
+
+namespace ProfitBricksApi;
+
+/**
+ * Class DataCenter describes the properties of a data center at ProfitBricks.
+ */
+class DataCenter
+{
+    public $id;
+    public $type;
+    public $href;
+    public $createdDate;
+    public $createdBy;
+    public $etag;
+    public $lastModifiedDate;
+    public $lastModifiedBy;
+    public $name;
+    public $description;
+    public $location;
+    public $version;
+    public $features;
+
+    public function __construct($_profitBricksDataCenter)
+    {
+        $this->id = $_profitBricksDataCenter->id;
+        $this->type = $_profitBricksDataCenter->type;
+        $this->href = $_profitBricksDataCenter->href;
+        $this->createdDate = new \DateTime($_profitBricksDataCenter->metadata->createdDate);
+        $this->createdDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $this->createdBy = $_profitBricksDataCenter->metadata->createdBy;
+        $this->etag = $_profitBricksDataCenter->metadata->etag;
+        $this->lastModifiedDate = new \DateTime($_profitBricksDataCenter->metadata->lastModifiedDate);
+        $this->lastModifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $this->lastModifiedBy = $_profitBricksDataCenter->metadata->lastModifiedBy;
+        $this->name = $_profitBricksDataCenter->properties->name;
+        $this->description = $_profitBricksDataCenter->properties->description;
+        $this->location = $_profitBricksDataCenter->properties->location;
+        $this->version = $_profitBricksDataCenter->properties->version;
+        $this->features = $_profitBricksDataCenter->properties->features;
+        $this->virtualMachines = array();
+    }
+}
+/**
+ *  This object class is filled by values submitted by ProfitBricksAPI. The original values are:
+ *  The depths of this objects are depending on the "?depths=x" value, submitted by GET to the API. (1-5)
+ *
+ *  $dataCenter->id                             id
+ *  $dataCenter->type                           mostly 'snapshot'
+ *  $dataCenter->href                           link (maybe for download)
+ *  $dataCenter->metadata                   object
+ *  $dataCenter->metadata->createdDate          date of creation
+ *  $dataCenter->metadata->createdBy            user name
+ *  $dataCenter->metadata->etag                 cryptic number
+ *  $dataCenter->metadata->lastModifiedDate     date of last modification
+ *  $dataCenter->metadata->lastModifiedBy       user name
+ *  $dataCenter->metadata->state                availability
+ *  $dataCenter->properties                 object
+ *  $dataCenter->properties->name               name
+ *  $dataCenter->properties->description        description
+ *  $dataCenter->properties->location           location
+ *  $dataCenter->properties->version            version
+ *  $dataCenter->properties->features           array of strings like ["SSD", "MULTIPLE_CPU"]
+ *  $dataCenter->entities                   object
+ *  $dataCenter->entities->servers          object
+ *  $dataCenter->entities->servers->id          id
+ *  $dataCenter->entities->servers->type        mostly just "collection"
+ *  $dataCenter->entities->servers->href        href
+ *  $dataCenter->entities->volumes          object
+ *  $dataCenter->entities->volumes->id          id
+ *  $dataCenter->entities->volumes->type        mostly just "collection"
+ *  $dataCenter->entities->volumes->href        href
+ *  $dataCenter->entities->loadbalancers    object
+ *  $dataCenter->entities->loadbalancers->id    id
+ *  $dataCenter->entities->loadbalancers->type  mostly just "collection"
+ *  $dataCenter->entities->loadbalancers->href  href
+ *  $dataCenter->entities->lans             object
+ *  $dataCenter->entities->lans->id             id
+ *  $dataCenter->entities->lans->type           mostly just "collection"
+ *  $dataCenter->entities->lans->href           href
+ */

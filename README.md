@@ -11,12 +11,12 @@ Motivation
 ProfitBricks provides an API which enables us to create, delete and modify virtual machines,
 virtual disks and its snapshots. PBST covers the creation and deletion of snapshots. Which is
 with an automatic script much easier than in the web interface.
-#####PBST method
+##### PBST method
 In a 1st step PBST is getting all information about data centers, virtual machines and its disks.
 Due to this dependencies PBST considers only connected disks for snapshots. Regarding to this
 we can make snapshot from commandline for every server at once or for just one. This can be done
 by manual initiation or by cronjob.
-#####Notification
+##### Notification
 Having an automatic snapshot creation without monitoring this behaviour is not the best way.
 So PBST delivers success messages to a specified email address when the snapshot has been done.
 The email address can be configured, which is explained in the chapter configuration.
@@ -29,7 +29,7 @@ Installation
 
 Reference
 ---------
-####Configuration
+#### Configuration
 The config file (config.ini) consists of the two fixed chapters api and mail, which configures
 the user credentials and the email addresses. The following chapters configures the servers. 
 
@@ -40,7 +40,7 @@ doesn't need a configuration.
 
 There is an self explained example file delivered with this repository.
 
-####HOW-TO
+#### HOW-TO
 Command usage is depending on your operating system.
 
 List commands give you a small overview and you can test with it the validity of your configuration.

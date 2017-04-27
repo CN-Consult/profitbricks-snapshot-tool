@@ -8,7 +8,7 @@
  * License: Please check the LICENSE file for more information.
  */
 
-namespace PBST\Command;
+namespace PBST\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Helper\TableStyle;
-use ProfitBricksApi\ProfitBricksApi;
+use PBST\ProfitBricksApi\ProfitBricksApi;
 use Exception;
 
 /**
@@ -58,7 +58,7 @@ class DiskListCommand extends Command
         $sumCount = 0;
         foreach ($dataCenters as $dataCenter)
         {
-            foreach ($profitBricksApi->virtualMachines($dataCenter) as $virtualMachine)
+            foreach ($profitBricksApi->virtualMachinesFor($dataCenter) as $virtualMachine)
             {
                 foreach ($profitBricksApi->virtualDisks($virtualMachine, $dataCenter->id) as $virtualDisk)
                 {

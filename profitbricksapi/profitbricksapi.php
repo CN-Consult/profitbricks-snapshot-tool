@@ -8,7 +8,7 @@
  * License: Please check the LICENSE file for more information.
  */
 
-namespace ProfitBricksApi;
+namespace PBST\ProfitBricksApi;
 
 use Exception;
 
@@ -26,14 +26,10 @@ class ProfitBricksApi
     const profitBricksDeleteSnapshot = "https://api.profitbricks.com/cloudapi/v3/snapshots/[snapshot-id]";
     const profitBricksCreateSnapshot = "https://api.profitbricks.com/cloudapi/v3/datacenters/[data-center-id]/volumes/[volume-id]/create-snapshot";
 
-    public function __construct()
-    {
-    }
-
     /**
      * Reads all information about snapshots from ProfitBricks into usable objects.
      *
-     * @return Snapshot[]|bool
+     * @return Snapshot[]|bool False or all snapshots independent from its status.
      */
     public function snapshots()
     {
@@ -53,7 +49,7 @@ class ProfitBricksApi
     /**
      * Reads all information about DataCenters from ProfitBricks into usable objects.
      *
-     * @return DataCenter[]|bool
+     * @return DataCenter[]|bool Array of DataCenter of false when an error occurred.
      */
     public function dataCenters()
     {
@@ -70,13 +66,28 @@ class ProfitBricksApi
         return $dataCenters;
     }
 
+    /**
+     * Provides all information of all VMs in every DC in class property.
+     *
+     * @return VirtualMachine[] Array of virtual machines
+     */
+    public function allVirtualMachines()
+    {
+        $virtualMachines = array();
+        foreach ($this->dataCenters() as $dataCenter)
+        {
+            $virtualMachines = array_merge($virtualMachines, $this->virtualMachinesFor($dataCenter));
+        }
+        return $virtualMachines;
+    }
+
      /**
      * Reads all information about virtual machines/servers from ProfitBricks into usable objects.
      *
      * @param DataCenter $_dataCenter determines the data center for which the virtual machines should be searched.
-     * @return VirtualMachine[]|bool
+     * @return VirtualMachine[]|bool Array of VirtualMachine or false when an error occurred.
      */
-    public function virtualMachines(DataCenter $_dataCenter)
+    public function virtualMachinesFor(DataCenter $_dataCenter)
     {
         $virtualMachines = false;
         $api = str_replace("[data-center-id]", $_dataCenter->id, self::profitBricksServerApi);
@@ -92,7 +103,7 @@ class ProfitBricksApi
      *
      * @param string $_dataCenterId determines the data center, in which the virtual machine is.
      * @param VirtualMachine $_virtualMachine determines the virtual machine, which are the disks attached to.
-     * @return VirtualDisk[]|bool
+     * @return VirtualDisk[]|bool Array of VirtualDisk or false when an error occurred.
      */
     public function virtualDisks(VirtualMachine $_virtualMachine, $_dataCenterId)
     {
@@ -167,7 +178,6 @@ class ProfitBricksApi
         $kw = $now->format('Y-W');
 
         $snapShotName = $_virtualMachine->name . "_" . $_virtualDisk->name . "_KW$kw";
-        // @todo "Auto-Script: "
         $snapShotDescription = $_preDescription . $_dataCenter->name . "-->" . $_virtualMachine->name . "-->" . $_virtualDisk->name;
 
         $postData = "name=".$snapShotName."&description=".$snapShotDescription;

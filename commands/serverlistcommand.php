@@ -8,13 +8,13 @@
  * License: Please check the LICENSE file for more information.
  */
 
-namespace PBST\Command;
+namespace PBST\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use ProfitBricksApi\ProfitBricksApi;
+use PBST\ProfitBricksApi\ProfitBricksApi;
 use Exception;
 
 /**
@@ -52,7 +52,7 @@ class ServerListCommand extends Command
         $tableColumns = array ();
         foreach ($dataCenters as $dataCenter)
         {
-            foreach ($profitBricksApi->virtualMachines($dataCenter) as $virtualMachine)
+            foreach ($profitBricksApi->virtualMachinesFor($dataCenter) as $virtualMachine)
             {
                 $tableColumns[] = array ($dataCenter->name, $virtualMachine->id, $virtualMachine->name);
             }

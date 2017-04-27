@@ -8,10 +8,8 @@
  * License: Please check the LICENSE file for more information.
  */
 
-namespace PBST\Command;
+namespace PBST\Commands;
 
-use ProfitBricksApi\Snapshot;
-use ProfitBricksApi\VirtualMachine;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Helper\Table;
@@ -19,7 +17,9 @@ use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use ProfitBricksApi\ProfitBricksApi;
+use PBST\ProfitBricksApi\ProfitBricksApi;
+use PBST\ProfitBricksApi\VirtualMachine;
+use PBST\ProfitBricksApi\Snapshot;
 use DateTime;
 use Exception;
 
@@ -78,17 +78,18 @@ class SnapshotAutoDeleteCommand extends Command
                         {
                             if ($this->profitBricksApi->deleteSnapshot($snapshot->id))
                             {
-                                $tableRows[] = array ($snapshot->id, $snapshot->name, $snapshot->description, $snapshot->createdDate->format("d.m.Y H:i"), $snapshot->size." GB", "deleted!");
+                                $snapshotSituation = "deleted!";
                                 $sumSize += (int)$snapshot->size;
                                 $sumCount += 1;
                             }
-                            else $tableRows[] = array ($snapshot->id, $snapshot->name, $snapshot->description, $snapshot->createdDate->format("d.m.Y H:i"), $snapshot->size." GB", "deletion failed!");
+                            else $snapshotSituation = "deletion failed!";
                         }
-                        else $tableRows[] = array ($snapshot->id, $snapshot->name, $snapshot->description, $snapshot->createdDate->format("d.m.Y H:i"), $snapshot->size." GB", "deletion time: ".$deletionDate->format("d.m.Y H:i"));
+                        else $snapshotSituation = "deletion time: ".$deletionDate->format("d.m.Y H:i");
                     }
-                    else  $tableRows[] = array ($snapshot->id, $snapshot->name, $snapshot->description, $snapshot->createdDate->format("d.m.Y H:i"), $snapshot->size." GB", "no configuration for server ".$virtualMachine->name."!");
+                    else  $snapshotSituation = "no configuration for server ".$virtualMachine->name."!";
                 }
-                else  $tableRows[] = array ($snapshot->id, $snapshot->name, $snapshot->description, $snapshot->createdDate->format("d.m.Y H:i"), $snapshot->size." GB", "no valid server name!");
+                else $snapshotSituation = "no valid server name!";
+                $tableRows[] = array ($snapshot->id, $snapshot->name, $snapshot->description, $snapshot->createdDate->format("d.m.Y H:i"), $snapshot->size." GB", $snapshotSituation);
             }
             $sumSize = ceil($sumSize / 100);
             $sumSize = $sumSize / 10;
@@ -111,25 +112,29 @@ class SnapshotAutoDeleteCommand extends Command
         else throw new Exception("There are no snapshots at ProfitBricks!");
     }
 
+    /**
+     * @param Snapshot $snapshot The snapshot, for which a VM should be found.
+     * @return bool|VirtualMachine False or the VM
+     */
     private function getVirtualMachineFor(Snapshot $snapshot)
     {
         foreach ($this->virtualMachines as $virtualMachine)
         {
-            if (strpos($snapshot->name, $virtualMachine->name)!==false)// && strpos($snapshot->description, $virtualMachine->name)!==false)
+            if (strpos($snapshot->name, $virtualMachine->name)!==false)
                 return $virtualMachine;
         }
         return false;
     }
 
     /**
-     * Get all VMs from ProfitBricks.
+     * Get all VMs from ProfitBricks into the class member.
      */
     private function readVirtualMachinesOnce()
     {
         $virtualMachines = array();
         foreach ($this->profitBricksApi->dataCenters() as $dataCenter)
         {
-            $virtualMachines = array_merge($virtualMachines, $this->profitBricksApi->virtualMachines($dataCenter));
+            $virtualMachines = array_merge($virtualMachines, $this->profitBricksApi->virtualMachinesFor($dataCenter));
         }
         $this->virtualMachines = $virtualMachines;
     }

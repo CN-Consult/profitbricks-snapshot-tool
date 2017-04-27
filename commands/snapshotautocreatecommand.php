@@ -8,15 +8,15 @@
  * License: Please check the LICENSE file for more information.
  */
 
-namespace PBST\Command;
+namespace PBST\Commands;
 
-use ProfitBricksApi\Snapshot;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use ProfitBricksApi\ProfitBricksApi;
-use ProfitBricksApi\DataCenter;
+use PBST\ProfitBricksApi\ProfitBricksApi;
+use PBST\ProfitBricksApi\DataCenter;
+use PBST\ProfitBricksApi\Snapshot;
 use DateTime;
 use DateInterval;
 use Exception;
@@ -69,7 +69,7 @@ class SnapshotAutoCreateCommand extends Command
         $tableRows = array ();
         foreach ($dataCenters as $dataCenter)
         {
-            foreach ($profitBricksApi->virtualMachines($dataCenter) as $virtualMachine)
+            foreach ($profitBricksApi->virtualMachinesFor($dataCenter) as $virtualMachine)
             {// only auto snapshot configured servers (virtual machines)
                 if (isset($this->config[$virtualMachine->name]))
                 {

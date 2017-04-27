@@ -8,11 +8,15 @@
  * License: Please check the LICENSE file for more information.
  */
 
-namespace ProfitBricksApi;
+namespace PBST\ProfitBricksApi;
 
 /**
- * Class Snapshot describes the properties of a snapshot at ProfitBricks.
+ * Class Snapshot is a quite simple data container which wrap all available values.
+ *
+ * The variables can resist and can be used in future developed code even if ProfitBricks changes the api construction.
+ * In this case just the variables here have to be modified and the code still works.
  */
+
 class Snapshot
 {
 
@@ -77,18 +81,18 @@ class Snapshot
 }
 
 /** Object description
- *  $snapShot                           Array
+ *  $snapShot                               Array
  *  $snapShot->id                           cryptic number
  *  $snapShot->type                         mostly 'snapshot'
  *  $snapShot->href                         link (maybe for download)
- *  $snapShot->metadata                 object
+ *  $snapShot->metadata                     object
  *  $snapShot->metadata->createdDate        date of creation
  *  $snapShot->metadata->createdBy          user name
  *  $snapShot->metadata->etag               cryptic number
  *  $snapShot->metadata->lastModifiedDate   date of last modification
  *  $snapShot->metadata->lastModifiedBy     user name
  *  $snapShot->metadata->state              availability
- *  $snapShot->properties               object
+ *  $snapShot->properties                   object
  *  $snapShot->properties->name             name
  *  $snapShot->properties->description      description
  *  $snapShot->properties->location         location

@@ -8,10 +8,13 @@
  * License: Please check the LICENSE file for more information.
  */
 
-namespace ProfitBricksApi;
+namespace PBST\ProfitBricksApi;
 
 /**
- * Class VirtualDisk describes the properties of a VD at ProfitBricks.
+ * Class VirtualDisk is a quite simple data container which wrap all available values.
+ *
+ * The variables can resist and can be used in future developed code even if ProfitBricks changes the api construction.
+ * In this case just the variables here have to be modified and the code still works.
  */
 class VirtualDisk
 {
@@ -93,26 +96,26 @@ class VirtualDisk
 /**
  *  This object class is filled by values submitted by ProfitBricksAPI. Not all values are important.
  *  The original values are:
- *  $disk                             Array
- *  $disk->id                             id
- *  $disk->type                           mostly 'snapshot'
- *  $disk->href                           link (maybe for download)
- *  $disk->metadata                   object
- *  $disk->metadata->createdDate          date of creation
- *  $disk->metadata->createdBy            user name
- *  $disk->metadata->etag                 cryptic number
- *  $disk->metadata->lastModifiedDate     date of last modification
- *  $disk->metadata->lastModifiedBy       user name
- *  $disk->metadata->state                availability
- *  $disk->properties                 object
- *  $disk->properties->name               name
- *  $disk->properties->type               HDD / SSD
- *  $disk->properties->size               GB
- *  $disk->properties->availabilityZone   Value AUTO or w/e
- *  $disk->properties->image              null
- *  $disk->properties->imagePassword      null
- *  $disk->properties->sshKeys            SSH keys
- *  $disk->properties->bus                bus type
+ *  $disk                                   Array
+ *  $disk->id                               id
+ *  $disk->type                             mostly 'snapshot'
+ *  $disk->href                             link (maybe for download)
+ *  $disk->metadata                         object
+ *  $disk->metadata->createdDate            date of creation
+ *  $disk->metadata->createdBy              user name
+ *  $disk->metadata->etag                   cryptic number
+ *  $disk->metadata->lastModifiedDate       date of last modification
+ *  $disk->metadata->lastModifiedBy         user name
+ *  $disk->metadata->state                  availability
+ *  $disk->properties                       object
+ *  $disk->properties->name                 name
+ *  $disk->properties->type                 HDD / SSD
+ *  $disk->properties->size                 GB
+ *  $disk->properties->availabilityZone     Value AUTO or w/e
+ *  $disk->properties->image                null
+ *  $disk->properties->imagePassword        null
+ *  $disk->properties->sshKeys              SSH keys
+ *  $disk->properties->bus                  bus type
  *  $disk->properties->licenseType
  *  $disk->properties->cpuHotPlug
  *  $disk->properties->cpuHotUnplug

@@ -8,10 +8,13 @@
  * License: Please check the LICENSE file for more information.
  */
 
-namespace ProfitBricksApi;
+namespace PBST\ProfitBricksApi;
 
 /**
- * Class DataCenter describes the properties of a data center at ProfitBricks.
+ * Class DataCenter is a quite simple data container which wrap all available values.
+ *
+ * The variables can resist and can be used in future developed code even if ProfitBricks changes the api construction.
+ * In this case just the variables here have to be modified and the code still works.
  */
 class DataCenter
 {
@@ -55,34 +58,34 @@ class DataCenter
  *
  *  $dataCenter->id                             id
  *  $dataCenter->type                           mostly 'snapshot'
- *  $dataCenter->href                           link (maybe for download)
- *  $dataCenter->metadata                   object
+ *  $dataCenter->href                           link
+ *  $dataCenter->metadata                       object
  *  $dataCenter->metadata->createdDate          date of creation
  *  $dataCenter->metadata->createdBy            user name
  *  $dataCenter->metadata->etag                 cryptic number
  *  $dataCenter->metadata->lastModifiedDate     date of last modification
  *  $dataCenter->metadata->lastModifiedBy       user name
  *  $dataCenter->metadata->state                availability
- *  $dataCenter->properties                 object
+ *  $dataCenter->properties                     object
  *  $dataCenter->properties->name               name
  *  $dataCenter->properties->description        description
  *  $dataCenter->properties->location           location
  *  $dataCenter->properties->version            version
  *  $dataCenter->properties->features           array of strings like ["SSD", "MULTIPLE_CPU"]
- *  $dataCenter->entities                   object
- *  $dataCenter->entities->servers          object
+ *  $dataCenter->entities                       object
+ *  $dataCenter->entities->servers              object
  *  $dataCenter->entities->servers->id          id
  *  $dataCenter->entities->servers->type        mostly just "collection"
  *  $dataCenter->entities->servers->href        href
- *  $dataCenter->entities->volumes          object
+ *  $dataCenter->entities->volumes              object
  *  $dataCenter->entities->volumes->id          id
  *  $dataCenter->entities->volumes->type        mostly just "collection"
  *  $dataCenter->entities->volumes->href        href
- *  $dataCenter->entities->loadbalancers    object
+ *  $dataCenter->entities->loadbalancers        object
  *  $dataCenter->entities->loadbalancers->id    id
  *  $dataCenter->entities->loadbalancers->type  mostly just "collection"
  *  $dataCenter->entities->loadbalancers->href  href
- *  $dataCenter->entities->lans             object
+ *  $dataCenter->entities->lans                 object
  *  $dataCenter->entities->lans->id             id
  *  $dataCenter->entities->lans->type           mostly just "collection"
  *  $dataCenter->entities->lans->href           href

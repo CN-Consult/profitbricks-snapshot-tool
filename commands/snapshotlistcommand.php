@@ -8,9 +8,8 @@
  * License: Please check the LICENSE file for more information.
  */
 
-namespace PBST\Command;
+namespace PBST\Commands;
 
-use ProfitBricksApi\Snapshot;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -19,7 +18,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Helper\TableStyle;
-use ProfitBricksApi\ProfitBricksApi;
+use PBST\ProfitBricksApi\ProfitBricksApi;
+use PBST\ProfitBricksApi\Snapshot;
 use Exception;
 
 /**
@@ -77,7 +77,6 @@ class SnapshotListCommand extends Command
             $rows = array();
             $sumSize = 0;
             $sumCount = 0;
-            /** @var Snapshot $snapShot */
             foreach ($snapShots as $snapShot)
             {
                 $snapshotDate = $snapShot->createdDate;

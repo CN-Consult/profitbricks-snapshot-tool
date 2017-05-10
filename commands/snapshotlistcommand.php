@@ -27,9 +27,8 @@ use Exception;
  *
  * This command lists all snapshots including their description and their size.
  */
-class SnapshotListCommand extends Command
+class SnapshotListCommand extends CommandBase
 {
-    private $config;
     private $before;
 
     public function __construct()
@@ -40,6 +39,7 @@ class SnapshotListCommand extends Command
 
     protected function configure()
     {
+        parent::configure();
         $this
             ->setName("snapshot:list")
             ->setDescription("Lists all snapshots from ProfitBricks!")
@@ -58,17 +58,7 @@ class SnapshotListCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (is_readable('config.ini'))
-        {
-            $this->config = parse_ini_file('config.ini', true);
-            if (!isset($this->config['api']['user']) || !isset($this->config['api']['password'])) throw new Exception("No user or no password configured to connect ProfitBricks!");
-        }
-        else throw new Exception("Error during reading config.ini!");
-        $profitBricksApi = new ProfitBricksApi();
-        $profitBricksApi->setUserName($this->config["api"]["user"]);
-        $profitBricksApi->setPassword($this->config["api"]["password"]);
-
-        $snapShots = $profitBricksApi->snapshots();
+        $snapShots = $this->profitBricksApi->snapshots();
         if ($snapShots!==false)
         {
             $io =  new SymfonyStyle($input, $output);
@@ -87,9 +77,7 @@ class SnapshotListCommand extends Command
                     $sumCount += 1;
                 }
             }
-            $sumSize = ceil($sumSize / 100);
-            $sumSize = $sumSize / 10;
-            $sumSize = str_replace('.',',',(string)$sumSize);
+            $sumSize = $this->formatSize($sumSize);
             $rows[] = new TableSeparator();
             $rows[] = array ("Counter:", $sumCount, "", "Total", $sumSize." TB", "");
 

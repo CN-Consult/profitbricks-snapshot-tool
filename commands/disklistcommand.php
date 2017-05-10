@@ -25,12 +25,12 @@ use Exception;
  *
  * Lists all virtual disks connected to a VM at ProfitBricks DataCenters.
  */
-class DiskListCommand extends Command
+class DiskListCommand extends CommandBase
 {
-    private $config;
-
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setName("disk:list")
             ->setDescription("Lists all disks from ProfitBricks!");
@@ -38,17 +38,7 @@ class DiskListCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (is_readable('config.ini'))
-        {
-            $this->config = parse_ini_file('config.ini', true);
-            if (!isset($this->config['api']['user']) || !isset($this->config['api']['password'])) throw new Exception("No user or no password configured to connect ProfitBricks!");
-        }
-        else throw new Exception("Error during reading config.ini!");
-
-        $profitBricksApi = new ProfitBricksApi();
-        $profitBricksApi->setUserName($this->config["api"]["user"]);
-        $profitBricksApi->setPassword($this->config["api"]["password"]);
-        $dataCenters = $profitBricksApi->dataCenters();
+        $dataCenters = $this->profitBricksApi->dataCenters();
 
         $io =  new SymfonyStyle($input, $output);
         $io->title("List of virtual disks");
@@ -58,9 +48,9 @@ class DiskListCommand extends Command
         $sumCount = 0;
         foreach ($dataCenters as $dataCenter)
         {
-            foreach ($profitBricksApi->virtualMachinesFor($dataCenter) as $virtualMachine)
+            foreach ($this->profitBricksApi->virtualMachinesFor($dataCenter) as $virtualMachine)
             {
-                foreach ($profitBricksApi->virtualDisks($virtualMachine, $dataCenter->id) as $virtualDisk)
+                foreach ($this->profitBricksApi->virtualDisks($virtualMachine, $dataCenter->id) as $virtualDisk)
                 {
                     $tableRows[] = array ($dataCenter->name, $virtualMachine->name, $virtualDisk->name, $virtualDisk->size." GB", $virtualDisk->id);
                     $sumSize += (int)$virtualDisk->size;
@@ -68,9 +58,7 @@ class DiskListCommand extends Command
                 }
             }
         }
-        $sumSize = ceil($sumSize / 100);
-        $sumSize = $sumSize / 10;
-        $sumSize = str_replace('.',',',(string)$sumSize);
+        $sumSize = $this->formatSize($sumSize);
         $tableRows[] = new TableSeparator();
         $tableRows[] = array ("Counter:", $sumCount, "Total:", $sumSize." TB", "");
 

@@ -10,24 +10,20 @@
 
 namespace PBST\Commands;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use PBST\ProfitBricksApi\ProfitBricksApi;
-use Exception;
 
 /**
  * Class ServerListCommand
  *
  * List all servers, you have created in ProfitBricks space.
  */
-class ServerListCommand extends Command
+class ServerListCommand extends CommandBase
 {
-    private $config;
-
     protected function configure()
     {
+        parent::configure();
         $this
             ->setName("server:list")
             ->setDescription("Lists all servers from ProfitBricks!");
@@ -35,24 +31,14 @@ class ServerListCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (is_readable('config.ini'))
-        {
-            $this->config = parse_ini_file('config.ini', true);
-            if (!isset($this->config['api']['user']) || !isset($this->config['api']['password'])) throw new Exception("No user or no password configured to connect ProfitBricks!");
-        }
-        else throw new Exception("Error during reading config.ini!");
-        $profitBricksApi = new ProfitBricksApi();
-        $profitBricksApi->setUserName($this->config["api"]["user"]);
-        $profitBricksApi->setPassword($this->config["api"]["password"]);
-
-        $dataCenters = $profitBricksApi->dataCenters();
+        $dataCenters = $this->profitBricksApi->dataCenters();
         $io =  new SymfonyStyle($input, $output);
         $io->title("Virtual Machines");
         $tableHeaders = array ("DataCenter", "ID", "VirtualHost");
         $tableColumns = array ();
         foreach ($dataCenters as $dataCenter)
         {
-            foreach ($profitBricksApi->virtualMachinesFor($dataCenter) as $virtualMachine)
+            foreach ($this->profitBricksApi->virtualMachinesFor($dataCenter) as $virtualMachine)
             {
                 $tableColumns[] = array ($dataCenter->name, $virtualMachine->id, $virtualMachine->name);
             }

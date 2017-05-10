@@ -10,25 +10,21 @@
 
 namespace PBST\Commands;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use PBST\ProfitBricksApi\ProfitBricksApi;
 use PBST\ProfitBricksApi\DataCenter;
 use PBST\ProfitBricksApi\Snapshot;
 use DateTime;
 use DateInterval;
-use Exception;
 
 /**
  * Class SnapshotAutoCreateCommand
  *
  * Creates automated snapshots from virtual servers which have been configured in config.ini.
  */
-class SnapshotAutoCreateCommand extends Command
+class SnapshotAutoCreateCommand extends CommandBase
 {
-    private $config;
     private $virtualMachineState;
 
     public function __construct()
@@ -39,6 +35,7 @@ class SnapshotAutoCreateCommand extends Command
 
     protected function configure()
     {
+        parent::configure();
         $this
             ->setName("snapshot:autoCreate")
             ->setDescription("Creates a snapshot from all disks which are attached to a server when necessary.");
@@ -46,20 +43,10 @@ class SnapshotAutoCreateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (is_readable('config.ini'))
-        {
-            $this->config = parse_ini_file('config.ini', true);
-            if (!isset($this->config['api']['user']) || !isset($this->config['api']['password']))throw new Exception("No user or no password configured to connect ProfitBricks!");
-        }
-        else throw new Exception("Error during reading config.ini!");
-
-        $profitBricksApi = new ProfitBricksApi();
-        $profitBricksApi->setUserName($this->config["api"]["user"]);
-        $profitBricksApi->setPassword($this->config["api"]["password"]);
         /** @var DataCenter[] $dataCenters */
-        $dataCenters = $profitBricksApi->dataCenters();
+        $dataCenters = $this->profitBricksApi->dataCenters();
         /** @var Snapshot[] $snapshots */
-        $snapshots = $profitBricksApi->snapshots();
+        $snapshots = $this->profitBricksApi->snapshots();
 
         $now = new DateTime();
         $io =  new SymfonyStyle($input, $output);
@@ -69,13 +56,13 @@ class SnapshotAutoCreateCommand extends Command
         $tableRows = array ();
         foreach ($dataCenters as $dataCenter)
         {
-            foreach ($profitBricksApi->virtualMachinesFor($dataCenter) as $virtualMachine)
+            foreach ($this->profitBricksApi->virtualMachinesFor($dataCenter) as $virtualMachine)
             {// only auto snapshot configured servers (virtual machines)
                 if (isset($this->config[$virtualMachine->name]))
                 {
                     $latestServerBackup = new DateTime("2080-01-01");
                     $latestServerBackupByScript = new DateTime("2080-01-01");
-                    $virtualDisks = $profitBricksApi->virtualDisks($virtualMachine, $dataCenter->id);
+                    $virtualDisks = $this->profitBricksApi->virtualDisks($virtualMachine, $dataCenter->id);
                     foreach ($virtualDisks as $virtualDisk)
                     {
                         $latestDiskBackup = new DateTime("1980-01-01");
@@ -102,7 +89,7 @@ class SnapshotAutoCreateCommand extends Command
                         ((int)$latestServerBackupByScript->format("Y") > 2000 && $now >= $nextBackup)) //or backup interval matches
                     foreach ($virtualDisks as $virtualDisk)
                     {// make the snapshots
-                        $snapshot = $profitBricksApi->makeSnapshot($dataCenter, $virtualMachine, $virtualDisk, "Auto-Script: ");
+                        $snapshot = $this->profitBricksApi->makeSnapshot($dataCenter, $virtualMachine, $virtualDisk, "Auto-Script: ");
                         $this->virtualMachineState[$virtualMachine->id][$snapshot->id] = "initiated";
                         $tableRows[] = array ("", "Disk ".$virtualDisk->name, "", "", "done!");
                     }
@@ -112,6 +99,6 @@ class SnapshotAutoCreateCommand extends Command
             }
         }
         $io->table($tableHeader, $tableRows);
-        file_put_contents(getcwd()."/checker.sav", serialize($this->virtualMachineState));
+        file_put_contents(__DIR__."/checker.sav", serialize($this->virtualMachineState));
     }
 }

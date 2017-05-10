@@ -28,16 +28,14 @@ use Exception;
  *
  * This class implements a simple automated deletion which is controlled by a time range defined in config.ini.
  */
-class SnapshotAutoDeleteCommand extends Command
+class SnapshotAutoDeleteCommand extends CommandBase
 {
-    private $config;
-    /** @var  ProfitBricksApi $profitBricksApi */
-    private $profitBricksApi;
     /** @var null|VirtualMachine[] $virtualMachines */
     private $virtualMachines = null;
 
     protected function configure()
     {
+        parent::configure();
         $this->profitBricksApi = new ProfitBricksApi();
         $this
             ->setName("snapshot:autoDelete")
@@ -46,15 +44,6 @@ class SnapshotAutoDeleteCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (is_readable('config.ini'))
-        {
-            $this->config = parse_ini_file('config.ini', true);
-            if (!isset($this->config['api']['user']) || !isset($this->config['api']['password'])) throw new Exception("No user or no password configured to connect ProfitBricks!");
-        }
-        else throw new Exception("Error during reading config.ini!");
-        $this->profitBricksApi->setUserName($this->config["api"]["user"]);
-        $this->profitBricksApi->setPassword($this->config["api"]["password"]);
-
         $snapshots = $this->profitBricksApi->snapshots();
         if ($snapshots != false && count($snapshots)>0)
         {
@@ -91,9 +80,7 @@ class SnapshotAutoDeleteCommand extends Command
                 else $snapshotSituation = "no valid server name!";
                 $tableRows[] = array ($snapshot->id, $snapshot->name, $snapshot->description, $snapshot->createdDate->format("d.m.Y H:i"), $snapshot->size." GB", $snapshotSituation);
             }
-            $sumSize = ceil($sumSize / 100);
-            $sumSize = $sumSize / 10;
-            $sumSize = str_replace('.',',',(string)$sumSize);
+            $sumSize = $this->formatSize($sumSize);
             $tableRows[] = new TableSeparator();
             $tableRows[] = array("Counter:", $sumCount, "", "Total:", $sumSize." TB", "deleted");
             //$io->table($header, $tableRows);

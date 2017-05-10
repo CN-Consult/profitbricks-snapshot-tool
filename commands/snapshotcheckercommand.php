@@ -24,12 +24,14 @@ use Exception;
  *
  * This command verifies the snapshots have been taken successful and sends an email to a configured address.
  */
-class SnapshotCheckerCommand extends Command
+class SnapshotCheckerCommand extends CommandBase
 {
-    private $config;
+    //private $config;
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setName("snapshot:checker")
             ->setDescription("Checks, if all snapshots of a server have been done and send success notification.");
@@ -37,27 +39,17 @@ class SnapshotCheckerCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (is_readable('config.ini'))
-        {
-            $this->config = parse_ini_file('config.ini', true);
-            if (!isset($this->config['api']['user']) || !isset($this->config['api']['password'])) throw new Exception("No user or no password configured to connect ProfitBricks!");
-        }
-        else throw new Exception("Error during reading config.ini!");
-
-        $profitBricksApi = new ProfitBricksApi();
-        $profitBricksApi->setUserName($this->config["api"]["user"]);
-        $profitBricksApi->setPassword($this->config["api"]["password"]);
-        $snapshots = $profitBricksApi->snapshots();
+        $snapshots = $this->profitBricksApi->snapshots();
 
         // read from snapshot status file, which is created (and overwritten) by snapshot:autoCreate
-        $fileContent = file_get_contents(getcwd()."/checker.sav");
+        $fileContent = file_get_contents(__DIR__."/checker.sav");
         if ($fileContent===false) throw new Exception("Could not read file 'checker.sav'!");
         $virtualMachineState = unserialize($fileContent);
         if (count($virtualMachineState)>0) {
             $io = new SymfonyStyle($input, $output);
             $io->title("Snapshot checker  ".date("d.m.Y H:i:s"));
             $tableRows = array();
-            $virtualMachines = $profitBricksApi->allVirtualMachines();
+            $virtualMachines = $this->profitBricksApi->allVirtualMachines();
             foreach ($virtualMachineState as $virtualMachineId => $snapshotStates) {
                 $valueChanged = false;
                 $available = true;
@@ -77,7 +69,7 @@ class SnapshotCheckerCommand extends Command
                 $tableRows[] = array($virtualMachines[$virtualMachineId]->name, $action);
             }
             $io->table(array("Server", "Action"), $tableRows);
-            file_put_contents(getcwd() . "/checker.sav", serialize($virtualMachineState));
+            file_put_contents(__DIR__ . "/checker.sav", serialize($virtualMachineState));
         }
     }
 

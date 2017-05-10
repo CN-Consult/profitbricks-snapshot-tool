@@ -28,13 +28,13 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
  *
  * With this command you can easy take snapshots form a specific server at once.
  */
-class SnapshotCreateFromAttachedDisksCommand extends Command
+class SnapshotCreateFromAttachedDisksCommand extends CommandBase
 {
-    private $config;
     private $preDescription = "";
 
     protected function configure()
     {
+        parent::configure();
         $this
             ->setName("snapshot:createFromAttachedDisks")
             ->setDescription("Creates a snapshot from all disks which are attached to a server.")
@@ -44,13 +44,6 @@ class SnapshotCreateFromAttachedDisksCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (is_readable('config.ini'))
-        {
-            $this->config = parse_ini_file('config.ini', true);
-            if (!isset($this->config['api']['user']) || !isset($this->config['api']['password'])) throw new Exception("No user or no password configured to connect ProfitBricks!");
-        }
-        else  throw new Exception("Error during reading config.ini!");
-
         if ($input->getOption("description")!== null) $this->preDescription = $input->getOption("description");
         if ($input->getOption("quiet")=== false && count($input->getArgument("server"))===0)
         {// In quiet mode don't ask for continuing this action.

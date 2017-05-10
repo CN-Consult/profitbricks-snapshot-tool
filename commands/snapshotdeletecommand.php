@@ -139,17 +139,4 @@ class SnapshotDeleteCommand extends Command
         $table->setColumnStyle(4, $colStyle);
         $table->render();
     }
-
-    /**
-     * Calculates from GB to TB with german decimal sign style.
-     *
-     * @param $_size
-     * @return string Output format german decimal style with one digit behind comma.
-     */
-    private function formatSize($_size)
-    {
-        $size = ceil($_size / 100);
-        $size = $size / 10;
-        return str_replace('.',',',(string)$size);
-    }
 }

@@ -36,7 +36,7 @@ class SnapshotAutoDeleteCommand extends CommandBase
     protected function configure()
     {
         parent::configure();
-
+        $this->profitBricksApi = new ProfitBricksApi();
         $this
             ->setName("snapshot:autoDelete")
             ->setDescription("Deletes snapshots regarding to the configuration in config.ini!");
@@ -45,7 +45,6 @@ class SnapshotAutoDeleteCommand extends CommandBase
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $snapshots = $this->profitBricksApi->snapshots();
-        $output->writeln("test");
         if ($snapshots != false && count($snapshots)>0)
         {
             $io =  new SymfonyStyle($input, $output);
@@ -60,7 +59,7 @@ class SnapshotAutoDeleteCommand extends CommandBase
             {
                 if ($virtualMachine = $this->getVirtualMachineFor($snapshot)) // don't use ==, because it is an valid assignment
                 {
-                    if (array_key_exists($virtualMachine->name, $this->config))
+                    if (array_key_exists($virtualMachine->name, $this->config)) // check if config exists
                     {
                         $deletionDate = clone $snapshot->createdDate;
                         $deletionDate->add(new \DateInterval("P".$this->config[$virtualMachine->name]["deleteSnapshotsOlderThan"]."D"));

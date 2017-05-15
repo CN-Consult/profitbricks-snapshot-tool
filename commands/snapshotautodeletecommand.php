@@ -36,7 +36,6 @@ class SnapshotAutoDeleteCommand extends CommandBase
     protected function configure()
     {
         parent::configure();
-        $this->profitBricksApi = new ProfitBricksApi();
         $this
             ->setName("snapshot:autoDelete")
             ->setDescription("Deletes snapshots regarding to the configuration in config.ini!");

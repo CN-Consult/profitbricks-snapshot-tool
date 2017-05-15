@@ -28,9 +28,8 @@ use Exception;
  *
  * This command deletes snapshot(s) at ProfitBricks by snapshot ID or filtered by date (deletes older than).
  */
-class SnapshotDeleteCommand extends Command
+class SnapshotDeleteCommand extends CommandBase
 {
-    private $config;
     private $deleteBeforeTimestamp;
 
     public function __construct()
@@ -41,6 +40,7 @@ class SnapshotDeleteCommand extends Command
 
     protected function configure()
     {
+        parent::configure();
         $this
             ->setName("snapshot:delete")
             ->setDescription("Deletes snapshots by ID or by date from ProfitBricks!")
@@ -50,17 +50,6 @@ class SnapshotDeleteCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (is_readable('config.ini'))
-        {
-            $this->config = parse_ini_file('config.ini', true);
-            if (!isset($this->config['api']['user']) || !isset($this->config['api']['password'])) throw new Exception("No user or no password configured to connect ProfitBricks!");
-        }
-        else throw new Exception("Error during reading config.ini!");
-
-        $profitBricksApi = new ProfitBricksApi();
-        $profitBricksApi->setUserName($this->config["api"]["user"]);
-        $profitBricksApi->setPassword($this->config["api"]["password"]);
-
         if ($input->getOption("before")!==null)
         {
             if (strtotime($input->getOption("before"))===false)
@@ -73,7 +62,7 @@ class SnapshotDeleteCommand extends Command
         }
         else $questionOutput = "This will delete every snapshot!";
 
-        $snapshots = $profitBricksApi->snapshots();
+        $snapshots = $this->profitBricksApi->snapshots();
 
         $io =  new SymfonyStyle($input, $output);
         $tableRows = array ();
@@ -88,7 +77,7 @@ class SnapshotDeleteCommand extends Command
             {
                 if (isset($snapshots[$id]) && $snapshots[$id]->createdDate<$this->deleteBeforeTimestamp)
                 {
-                    if ($profitBricksApi->deleteSnapshot($snapshots[$id]->id))
+                    if ($this->profitBricksApi->deleteSnapshot($snapshots[$id]->id))
                     {
                         $tableRows[] = array ($id, $snapshots[$id]->name, $snapshots[$id]->description, $snapshots[$id]->createdDate->format("d.m.Y H:i"), $snapshots[$id]->size." GB", "deleted!");
                         $sumSize += (int)$snapshots[$id]->size;
@@ -112,7 +101,7 @@ class SnapshotDeleteCommand extends Command
             {
                 if ($snapshot->createdDate<$this->deleteBeforeTimestamp)
                 {
-                    if ($profitBricksApi->deleteSnapshot($snapshot->id))
+                    if ($this->profitBricksApi->deleteSnapshot($snapshot->id))
                     {
                         $tableRows[] = array ($snapshot->id, $snapshot->name, $snapshot->description, $snapshot->createdDate->format("d.m.Y H:i"), $snapshot->size." GB", "deleted!");
                         $sumSize += (int)$snapshot->size;

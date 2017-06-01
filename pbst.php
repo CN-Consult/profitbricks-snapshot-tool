@@ -30,19 +30,6 @@ function customAutoLoader($_className)
 }
 spl_autoload_register("customAutoLoader");
 
-/**
-
-foreach (glob(getcwd()."/commands/*command.php") as $filename)
-{
-    require_once ($filename);
-}
-require_once ('profitbricksapi/profitbricksapi.php');
-require_once ('profitbricksapi/datacenter.php');
-require_once ('profitbricksapi/virtualmachine.php');
-require_once ('profitbricksapi/virtualdisk.php');
-require_once ('profitbricksapi/snapshot.php');
-*/
-
 $application = new Application();
 $application = new Application();
 foreach(array("SnapshotListCommand", "SnapshotCreateFromAttachedDisksCommand", "SnapshotDeleteCommand", "SnapshotAutoCreateCommand",
@@ -51,14 +38,4 @@ foreach(array("SnapshotListCommand", "SnapshotCreateFromAttachedDisksCommand", "
     $command = "\\PBST\\Commands\\".$command;
     $application->add(new $command());
 }
-/*
-$application->add(new \PBST\Commands\SnapshotListCommand());
-$application->add(new \PBST\Commands\SnapshotCreateFromAttachedDisksCommand());
-$application->add(new \PBST\Commands\SnapshotDeleteCommand());
-$application->add(new \PBST\Commands\SnapshotAutoCreateCommand());
-$application->add(new \PBST\Commands\SnapshotAutoDeleteCommand());
-$application->add(new \PBST\Commands\SnapshotCheckerCommand());
-$application->add(new \PBST\Commands\ServerListCommand());
-$application->add(new \PBST\Commands\DiskListCommand());
-*/
 $application->run();

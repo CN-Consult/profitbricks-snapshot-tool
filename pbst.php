@@ -31,9 +31,8 @@ function customAutoLoader($_className)
 spl_autoload_register("customAutoLoader");
 
 $application = new Application();
-$application = new Application();
 foreach(array("SnapshotListCommand", "SnapshotCreateFromAttachedDisksCommand", "SnapshotDeleteCommand", "SnapshotAutoCreateCommand",
-            "SnapshotAutoDeleteCommand", "SnapshotCheckerCommand", "ServerListCommand", "DiskListCommand") as $command)
+            "SnapshotAutoDeleteCommand", "SnapshotCheckerCommand", "ServerListCommand", "DiskListCommand", "ServerStartCommand", "ServerStopCommand") as $command)
 {
     $command = "\\PBST\\Commands\\".$command;
     $application->add(new $command());

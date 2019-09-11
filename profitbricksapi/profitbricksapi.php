@@ -25,6 +25,8 @@ class ProfitBricksApi
     const profitBricksDiskApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/[data-center-id]/servers/[server-id]/volumes?depth=1";
     const profitBricksDeleteSnapshot = "https://api.profitbricks.com/cloudapi/v3/snapshots/[snapshot-id]";
     const profitBricksCreateSnapshot = "https://api.profitbricks.com/cloudapi/v3/datacenters/[data-center-id]/volumes/[volume-id]/create-snapshot";
+    const profitBricksServerStart = "https://api.profitbricks.com/cloudapi/v4/datacenters/{dataCenterId}/servers/{serverId}/start";
+    const profitBricksServerStop = "https://api.profitbricks.com/cloudapi/v4/datacenters/{dataCenterId}/servers/{serverId}/stop";
 
     /**
      * Reads all information about snapshots from ProfitBricks into usable objects.
@@ -241,6 +243,72 @@ class ProfitBricksApi
             {
                 $token = strtok($response, "\n");
                 throw new Exception((strpos($response, "HTTP/1.1 401 Unauthorized")!==false) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
+            }
+        }
+        else
+        {
+            throw new Exception("Curl Error ".curl_errno($curl)." occurred!\n".curl_error($curl));
+        }
+        curl_close($curl);
+        return true;
+    }
+
+    /**
+     * Starts a server on IONOS
+     *
+     * @param $_dataCenterId DataCenterID
+     * @param $_serverId ServerID
+     * @return bool True on success
+     * @throws Exception
+     */
+    public function startServer($_dataCenterId, $_serverId)
+    {
+        return $this->startStopServer($_dataCenterId, $_serverId, "on");
+    }
+
+    /**
+     * Stops a server on IONOS
+     *
+     * @param $_dataCenterId DataCenterID
+     * @param $_serverId ServerID
+     * @return bool True on success
+     * @throws Exception
+     */
+    public function stopServer($_dataCenterId, $_serverId)
+    {
+        return $this->startStopServer($_dataCenterId, $_serverId, "off");
+    }
+
+    /**
+     * Starts or stops a server on IONOS.
+     *
+     * @param string $_dataCenterId DataCenterID
+     * @param string $_serverId ServerID
+     * @param string $_action On or off depending your wishes
+     * @return bool True on success
+     * @throws Exception
+     */
+    private function startStopServer($_dataCenterId, $_serverId, $_action = "on")
+    {
+        if (strtolower($_action)=="on") $api = self::profitBricksServerStart;
+        elseif (strtolower($_action)=="off") $api = self::profitBricksServerStop;
+        else throw new Exception("Wrong state in calling this method.");
+        $api = str_replace("{dataCenterId}", $_dataCenterId, $api);
+        $api = str_replace("{serverId}", $_serverId, $api);
+        $authorisation = base64_encode($this->user.":".$this->password);
+        $curl = curl_init($api);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_SSLVERSION, 6);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic $authorisation"));
+        if (curl_exec($curl))
+        {
+            $response = curl_multi_getcontent($curl);
+            if (strpos($response, "HTTP/1.1 202 Accepted")===false)
+            {
+                $token = strtok($response, "\n");
+                throw new Exception((strpos($response, "HTTP/1.1 401 Unauthorized")!==false) ? $token."\nCredentials for IONOS are invalid!" : $token);
             }
         }
         else

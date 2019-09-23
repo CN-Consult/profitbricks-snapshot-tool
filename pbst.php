@@ -2,7 +2,7 @@
 /**
  * @file
  * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @copyright 2019 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.

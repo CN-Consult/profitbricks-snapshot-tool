@@ -34,13 +34,7 @@ class ServerStartCommand extends CommandBase
         $this
             ->setName("server:start")
             ->setDescription("Starts one or more profitbricks server!")
-            ->addArgument("serverName", InputArgument::IS_ARRAY, "Names or IDs of server, which should be started.");
-    }
-
-    protected function interact(InputInterface $input, OutputInterface $output)
-    {
-        parent::interact($input, $output);
-        if (!$input->getArgument("serverName")) throw new Exception("Argument server name(s) missed!");
+            ->addArgument("serverName", InputArgument::IS_ARRAY | InputArgument::REQUIRED, "Names or IDs of server, which should be started.");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

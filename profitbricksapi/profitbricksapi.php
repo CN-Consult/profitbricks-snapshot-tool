@@ -21,10 +21,10 @@ class ProfitBricksApi
     private $password = "";
     const profitBricksSnapshotApi = "https://api.profitbricks.com/cloudapi/v3/snapshots?depth=1";
     const profitBricksDataCenterApi = "https://api.profitbricks.com/cloudapi/v3/datacenters?depth=2";
-    const profitBricksServerApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/[data-center-id]/servers?depth=2";
-    const profitBricksDiskApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/[data-center-id]/servers/[server-id]/volumes?depth=1";
-    const profitBricksDeleteSnapshot = "https://api.profitbricks.com/cloudapi/v3/snapshots/[snapshot-id]";
-    const profitBricksCreateSnapshot = "https://api.profitbricks.com/cloudapi/v3/datacenters/[data-center-id]/volumes/[volume-id]/create-snapshot";
+    const profitBricksServerApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/{data-center-id}/servers?depth=2";
+    const profitBricksDiskApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/{data-center-id}/servers/{server-id}/volumes?depth=1";
+    const profitBricksDeleteSnapshot = "https://api.profitbricks.com/cloudapi/v3/snapshots/{snapshot-id}";
+    const profitBricksCreateSnapshot = "https://api.profitbricks.com/cloudapi/v3/datacenters/{data-center-id}/volumes/{volume-id}/create-snapshot";
     const profitBricksServerStart = "https://api.profitbricks.com/cloudapi/v4/datacenters/{dataCenterId}/servers/{serverId}/start";
     const profitBricksServerStop = "https://api.profitbricks.com/cloudapi/v4/datacenters/{dataCenterId}/servers/{serverId}/stop";
 
@@ -92,7 +92,7 @@ class ProfitBricksApi
     public function virtualMachinesFor(DataCenter $_dataCenter)
     {
         $virtualMachines = false;
-        $api = str_replace("[data-center-id]", $_dataCenter->id, self::profitBricksServerApi);
+        $api = str_replace("{data-center-id}", $_dataCenter->id, self::profitBricksServerApi);
         foreach ($this->readFromProfitBricks($api) as $virtualMachine)
         {
             $virtualMachines[$virtualMachine->id] = new VirtualMachine($virtualMachine);
@@ -110,8 +110,8 @@ class ProfitBricksApi
     public function virtualDisks(VirtualMachine $_virtualMachine, $_dataCenterId)
     {
         $virtualDisks = false;
-        $api = str_replace("[data-center-id]", $_dataCenterId, self::profitBricksDiskApi);
-        $api = str_replace("[server-id]", $_virtualMachine->id, $api);
+        $api = str_replace("{data-center-id}", $_dataCenterId, self::profitBricksDiskApi);
+        $api = str_replace("{server-id}", $_virtualMachine->id, $api);
         $latestFullSnapshot = null;
         foreach ($this->readFromProfitBricks($api) as $virtualDisk)
         {
@@ -184,8 +184,8 @@ class ProfitBricksApi
 
         $postData = "name=".$snapShotName."&description=".$snapShotDescription;
         $authorisation = base64_encode($this->user.":".$this->password);
-        $api = str_replace("[data-center-id]", $_dataCenter->id, self::profitBricksCreateSnapshot);
-        $api = str_replace("[volume-id]", $_virtualDisk->id, $api);
+        $api = str_replace("{data-center-id}", $_dataCenter->id, self::profitBricksCreateSnapshot);
+        $api = str_replace("{volume-id}", $_virtualDisk->id, $api);
         $curl = curl_init($api);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_HEADER, true);
@@ -228,7 +228,7 @@ class ProfitBricksApi
      */
     public function deleteSnapshot($_snapShotId)
     {
-        $api = str_replace("[snapshot-id]", $_snapShotId, self::profitBricksDeleteSnapshot);
+        $api = str_replace("{snapshot-id}", $_snapShotId, self::profitBricksDeleteSnapshot);
         $authorisation = base64_encode($this->user.":".$this->password);
         $curl = curl_init($api);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");

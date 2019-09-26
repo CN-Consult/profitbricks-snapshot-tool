@@ -32,7 +32,7 @@ class ServerStopCommand extends ServerCommandBase
         $this
             ->setName("server:stop")
             ->setDescription("Stops one or more IONOS server(s)!")
-            ->addArgument("serverName", InputArgument::IS_ARRAY | InputArgument::REQUIRED, "Names or IDs of server, which should be started.");
+            ->addArgument("serverNames", InputArgument::IS_ARRAY | InputArgument::REQUIRED, "Names or IDs of server, which should be started.");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -32,7 +32,7 @@ class ServerStartCommand extends ServerCommandBase
         $this
             ->setName("server:start")
             ->setDescription("Starts one or more profitbricks server!")
-            ->addArgument("serverName", InputArgument::IS_ARRAY | InputArgument::REQUIRED, "Names or IDs of server, which should be started.");
+            ->addArgument("serverNames", InputArgument::IS_ARRAY | InputArgument::REQUIRED, "Names or IDs of server, which should be started.");
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

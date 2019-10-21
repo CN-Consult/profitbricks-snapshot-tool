@@ -1,8 +1,9 @@
+#!/usr/bin/php
 <?php
 /**
  * @file
  * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @copyright 2019 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -31,9 +32,8 @@ function customAutoLoader($_className)
 spl_autoload_register("customAutoLoader");
 
 $application = new Application();
-$application = new Application();
 foreach(array("SnapshotListCommand", "SnapshotCreateFromAttachedDisksCommand", "SnapshotDeleteCommand", "SnapshotAutoCreateCommand",
-            "SnapshotAutoDeleteCommand", "SnapshotCheckerCommand", "ServerListCommand", "DiskListCommand") as $command)
+            "SnapshotAutoDeleteCommand", "SnapshotCheckerCommand", "ServerListCommand", "DiskListCommand", "ServerStartCommand", "ServerStopCommand") as $command)
 {
     $command = "\\PBST\\Commands\\".$command;
     $application->add(new $command());

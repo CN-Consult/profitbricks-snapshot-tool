@@ -2,7 +2,7 @@
 /**
  * @file
  * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @copyright 2019 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -21,10 +21,12 @@ class ProfitBricksApi
     private $password = "";
     const profitBricksSnapshotApi = "https://api.profitbricks.com/cloudapi/v3/snapshots?depth=1";
     const profitBricksDataCenterApi = "https://api.profitbricks.com/cloudapi/v3/datacenters?depth=2";
-    const profitBricksServerApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/[data-center-id]/servers?depth=2";
-    const profitBricksDiskApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/[data-center-id]/servers/[server-id]/volumes?depth=1";
-    const profitBricksDeleteSnapshot = "https://api.profitbricks.com/cloudapi/v3/snapshots/[snapshot-id]";
-    const profitBricksCreateSnapshot = "https://api.profitbricks.com/cloudapi/v3/datacenters/[data-center-id]/volumes/[volume-id]/create-snapshot";
+    const profitBricksServerApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/{data-center-id}/servers?depth=2";
+    const profitBricksDiskApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/{data-center-id}/servers/{server-id}/volumes?depth=1";
+    const profitBricksDeleteSnapshot = "https://api.profitbricks.com/cloudapi/v3/snapshots/{snapshot-id}";
+    const profitBricksCreateSnapshot = "https://api.profitbricks.com/cloudapi/v3/datacenters/{data-center-id}/volumes/{volume-id}/create-snapshot";
+    const profitBricksServerStart = "https://api.profitbricks.com/cloudapi/v4/datacenters/{dataCenterId}/servers/{serverId}/start";
+    const profitBricksServerStop = "https://api.profitbricks.com/cloudapi/v4/datacenters/{dataCenterId}/servers/{serverId}/stop";
 
     /**
      * Reads all information about snapshots from ProfitBricks into usable objects.
@@ -90,7 +92,7 @@ class ProfitBricksApi
     public function virtualMachinesFor(DataCenter $_dataCenter)
     {
         $virtualMachines = false;
-        $api = str_replace("[data-center-id]", $_dataCenter->id, self::profitBricksServerApi);
+        $api = str_replace("{data-center-id}", $_dataCenter->id, self::profitBricksServerApi);
         foreach ($this->readFromProfitBricks($api) as $virtualMachine)
         {
             $virtualMachines[$virtualMachine->id] = new VirtualMachine($virtualMachine);
@@ -108,8 +110,8 @@ class ProfitBricksApi
     public function virtualDisks(VirtualMachine $_virtualMachine, $_dataCenterId)
     {
         $virtualDisks = false;
-        $api = str_replace("[data-center-id]", $_dataCenterId, self::profitBricksDiskApi);
-        $api = str_replace("[server-id]", $_virtualMachine->id, $api);
+        $api = str_replace("{data-center-id}", $_dataCenterId, self::profitBricksDiskApi);
+        $api = str_replace("{server-id}", $_virtualMachine->id, $api);
         $latestFullSnapshot = null;
         foreach ($this->readFromProfitBricks($api) as $virtualDisk)
         {
@@ -182,8 +184,8 @@ class ProfitBricksApi
 
         $postData = "name=".$snapShotName."&description=".$snapShotDescription;
         $authorisation = base64_encode($this->user.":".$this->password);
-        $api = str_replace("[data-center-id]", $_dataCenter->id, self::profitBricksCreateSnapshot);
-        $api = str_replace("[volume-id]", $_virtualDisk->id, $api);
+        $api = str_replace("{data-center-id}", $_dataCenter->id, self::profitBricksCreateSnapshot);
+        $api = str_replace("{volume-id}", $_virtualDisk->id, $api);
         $curl = curl_init($api);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_HEADER, true);
@@ -226,7 +228,7 @@ class ProfitBricksApi
      */
     public function deleteSnapshot($_snapShotId)
     {
-        $api = str_replace("[snapshot-id]", $_snapShotId, self::profitBricksDeleteSnapshot);
+        $api = str_replace("{snapshot-id}", $_snapShotId, self::profitBricksDeleteSnapshot);
         $authorisation = base64_encode($this->user.":".$this->password);
         $curl = curl_init($api);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -241,6 +243,72 @@ class ProfitBricksApi
             {
                 $token = strtok($response, "\n");
                 throw new Exception((strpos($response, "HTTP/1.1 401 Unauthorized")!==false) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
+            }
+        }
+        else
+        {
+            throw new Exception("Curl Error ".curl_errno($curl)." occurred!\n".curl_error($curl));
+        }
+        curl_close($curl);
+        return true;
+    }
+
+    /**
+     * Starts a server on IONOS
+     *
+     * @param $_dataCenterId DataCenterID
+     * @param $_serverId ServerID
+     * @return bool True on success
+     * @throws Exception
+     */
+    public function startServer($_dataCenterId, $_serverId)
+    {
+        return $this->startStopServer($_dataCenterId, $_serverId, "on");
+    }
+
+    /**
+     * Stops a server on IONOS
+     *
+     * @param $_dataCenterId DataCenterID
+     * @param $_serverId ServerID
+     * @return bool True on success
+     * @throws Exception
+     */
+    public function stopServer($_dataCenterId, $_serverId)
+    {
+        return $this->startStopServer($_dataCenterId, $_serverId, "off");
+    }
+
+    /**
+     * Starts or stops a server on IONOS.
+     *
+     * @param string $_dataCenterId DataCenterID
+     * @param string $_serverId ServerID
+     * @param string $_action On or off depending your wishes
+     * @return bool True on success
+     * @throws Exception
+     */
+    private function startStopServer($_dataCenterId, $_serverId, $_action = "on")
+    {
+        if (strtolower($_action)=="on") $api = self::profitBricksServerStart;
+        elseif (strtolower($_action)=="off") $api = self::profitBricksServerStop;
+        else throw new Exception("Wrong state in calling this method.");
+        $api = str_replace("{dataCenterId}", $_dataCenterId, $api);
+        $api = str_replace("{serverId}", $_serverId, $api);
+        $authorisation = base64_encode($this->user.":".$this->password);
+        $curl = curl_init($api);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_HEADER, true);
+        curl_setopt($curl, CURLOPT_SSLVERSION, 6);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic $authorisation"));
+        if (curl_exec($curl))
+        {
+            $response = curl_multi_getcontent($curl);
+            if (strpos($response, "HTTP/1.1 202 Accepted")===false)
+            {
+                $token = strtok($response, "\n");
+                throw new Exception((strpos($response, "HTTP/1.1 401 Unauthorized")!==false) ? $token."\nCredentials for IONOS are invalid!" : $token);
             }
         }
         else

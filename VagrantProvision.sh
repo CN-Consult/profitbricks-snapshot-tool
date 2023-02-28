@@ -6,7 +6,7 @@ sudo ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
 # Install apache and php
 apt-get update
-apt-get install -y php php7.0-zip php7.0-curl #apache2
+apt-get install -y php php-zip php-curl #apache2
 
 # Create a link to /vagrant in /var/www/html
 #if ! [ -L /var/www/html ]; then
@@ -31,3 +31,7 @@ php composer-setup.php --quiet --filename=composer
 RESULT=$?
 rm composer-setup.php
 chmod a+x composer
+
+echo "error_log = /var/log/php_errors.log" > /etc/php/8.1/cli/conf.d/90_dev.ini
+touch /var/log/php_errors.log
+chmod 666 /var/log/php_errors.log

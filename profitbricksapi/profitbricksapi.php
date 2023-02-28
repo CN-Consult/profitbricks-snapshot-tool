@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2019 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -11,14 +11,15 @@
 namespace PBST\ProfitBricksApi;
 
 use Exception;
+use DateTime;
 
 /**
  * Class ProfitBricksApi connects to the official ProfitBricksApi and returns easy usable objects.
  */
 class ProfitBricksApi
 {
-    private $user = "";
-    private $password = "";
+    private string $user = "";
+    private string $password = "";
     const profitBricksSnapshotApi = "https://api.profitbricks.com/cloudapi/v3/snapshots?depth=1";
     const profitBricksDataCenterApi = "https://api.profitbricks.com/cloudapi/v3/datacenters?depth=2";
     const profitBricksServerApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/{data-center-id}/servers?depth=2";
@@ -31,9 +32,10 @@ class ProfitBricksApi
     /**
      * Reads all information about snapshots from ProfitBricks into usable objects.
      *
-     * @return Snapshot[]|bool False or all snapshots independent from its status.
+     * @return Snapshot[]|bool False or all snapshots independent of its status.
+     * @throws Exception
      */
-    public function snapshots()
+    public function snapshots(): array | bool
     {
         $snapshots = false;
         $profitBricksSnapshots = $this->readFromProfitBricks(self::profitBricksSnapshotApi);
@@ -52,8 +54,9 @@ class ProfitBricksApi
      * Reads all information about DataCenters from ProfitBricks into usable objects.
      *
      * @return DataCenter[]|bool Array of DataCenter of false when an error occurred.
+     * @throws Exception
      */
-    public function dataCenters()
+    public function dataCenters(): array | bool
     {
         $dataCenters = false;
         $profitBricksDataCenters = $this->readFromProfitBricks(self::profitBricksDataCenterApi);
@@ -72,8 +75,9 @@ class ProfitBricksApi
      * Provides all information of all VMs in every DC in class property.
      *
      * @return VirtualMachine[] Array of virtual machines
+     * @throws Exception
      */
-    public function allVirtualMachines()
+    public function allVirtualMachines(): array
     {
         $virtualMachines = array();
         foreach ($this->dataCenters() as $dataCenter)
@@ -83,13 +87,14 @@ class ProfitBricksApi
         return $virtualMachines;
     }
 
-     /**
+    /**
      * Reads all information about virtual machines/servers from ProfitBricks into usable objects.
      *
      * @param DataCenter $_dataCenter determines the data center for which the virtual machines should be searched.
      * @return VirtualMachine[]|bool Array of VirtualMachine or false when an error occurred.
+     * @throws Exception
      */
-    public function virtualMachinesFor(DataCenter $_dataCenter)
+    public function virtualMachinesFor(DataCenter $_dataCenter): array|bool
     {
         $virtualMachines = false;
         $api = str_replace("{data-center-id}", $_dataCenter->id, self::profitBricksServerApi);
@@ -101,18 +106,18 @@ class ProfitBricksApi
     }
 
     /**
-     * Reads all information about virtual disks (called volumes) regarding to a virtual machine from ProfitBricks into usable objects.
+     * Reads all information about virtual disks (called volumes) belonging to a virtual machine from ProfitBricks into usable objects.
      *
      * @param string $_dataCenterId determines the data center, in which the virtual machine is.
      * @param VirtualMachine $_virtualMachine determines the virtual machine, which are the disks attached to.
      * @return VirtualDisk[]|bool Array of VirtualDisk or false when an error occurred.
+     * @throws Exception
      */
-    public function virtualDisks(VirtualMachine $_virtualMachine, $_dataCenterId)
+    public function virtualDisks(VirtualMachine $_virtualMachine, string $_dataCenterId): array | bool
     {
         $virtualDisks = false;
         $api = str_replace("{data-center-id}", $_dataCenterId, self::profitBricksDiskApi);
         $api = str_replace("{server-id}", $_virtualMachine->id, $api);
-        $latestFullSnapshot = null;
         foreach ($this->readFromProfitBricks($api) as $virtualDisk)
         {
             $virtualDisks[$virtualDisk->id] = new VirtualDisk($virtualDisk);
@@ -122,13 +127,13 @@ class ProfitBricksApi
 
 
     /**
-     * This function imports strings and JSON from ProfitBricks, which it cuts down to an usable array of objects.
+     * This function imports strings and JSON from ProfitBricks, which it cuts down to a usable array of objects.
      *
      * @param string $_profitBricksApi predefined const values
      * @return mixed Array of objects
      * @throws Exception when something with the connection process fails.
      */
-    private function readFromProfitBricks($_profitBricksApi)
+    private function readFromProfitBricks(string $_profitBricksApi): mixed
     {
         $authorisation = base64_encode($this->user.":".$this->password);
         $curl = curl_init($_profitBricksApi);
@@ -141,7 +146,7 @@ class ProfitBricksApi
         {
             $response = curl_multi_getcontent($curl);
 
-            if (strpos($response, "HTTP/1.1 200 OK")!==false)
+            if (str_contains($response, "HTTP/2 200"))
             {// remove leading HTTP response lines until JSON begins (with leading '{')
                 while (!preg_match('/^\{.*/', $response))
                 {
@@ -153,7 +158,7 @@ class ProfitBricksApi
             else
             {
                 $token = strtok($response, "\n");
-                throw new Exception((strpos($response, "HTTP/1.1 401 Unauthorized")!==false) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
+                throw new Exception((str_contains($response, "HTTP/2 401 Unauthorized")) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
             }
         }
         else
@@ -174,9 +179,12 @@ class ProfitBricksApi
      * @return Snapshot
      * @throws Exception when something goes wrong with the curl connection
      */
-    public function makeSnapshot(DataCenter $_dataCenter, VirtualMachine $_virtualMachine, VirtualDisk $_virtualDisk, $_preDescription = "")
+    public function makeSnapshot(DataCenter $_dataCenter,
+                                 VirtualMachine $_virtualMachine,
+                                 VirtualDisk $_virtualDisk,
+                                 string $_preDescription = ""): Snapshot
     {// calculate KW
-        $now = new \DateTime();
+        $now = new DateTime();
         $kw = $now->format('Y-W');
 
         $snapShotName = $_virtualMachine->name . "_" . $_virtualDisk->name . "_KW$kw";
@@ -196,7 +204,7 @@ class ProfitBricksApi
         if (curl_exec($curl))
         {
             $response = curl_multi_getcontent($curl);
-            if (strpos($response, "HTTP/1.1 202 Accepted")!==false)
+            if (str_contains($response, "HTTP/2 202 Accepted"))
             {
                 while (!preg_match('/^\{.*/', $response))
                 {
@@ -208,7 +216,7 @@ class ProfitBricksApi
             else
             {
                 $token = strtok($response, "\n");
-                throw new Exception((strpos($response, "HTTP/1.1 401 Unauthorized")!==false) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
+                throw new Exception((str_contains($response, "HTTP/2 401 Unauthorized")) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
             }
         }
         else
@@ -224,9 +232,9 @@ class ProfitBricksApi
      *
      * @param string $_snapShotId ID of the snapshot, which should be deleted
      * @return bool whether the snapshot is deleted successfully or not
-     * @throws \Exception
+     * @throws Exception
      */
-    public function deleteSnapshot($_snapShotId)
+    public function deleteSnapshot(string $_snapShotId): bool
     {
         $api = str_replace("{snapshot-id}", $_snapShotId, self::profitBricksDeleteSnapshot);
         $authorisation = base64_encode($this->user.":".$this->password);
@@ -239,10 +247,10 @@ class ProfitBricksApi
         if (curl_exec($curl))
         {
             $response = curl_multi_getcontent($curl);
-            if (strpos($response, "HTTP/1.1 202 Accepted")===false)
+            if (!str_contains($response, "HTTP/2 202 Accepted"))
             {
                 $token = strtok($response, "\n");
-                throw new Exception((strpos($response, "HTTP/1.1 401 Unauthorized")!==false) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
+                throw new Exception((str_contains($response, "HTTP/2 401 Unauthorized")) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
             }
         }
         else
@@ -256,12 +264,12 @@ class ProfitBricksApi
     /**
      * Starts a server on IONOS
      *
-     * @param $_dataCenterId DataCenterID
-     * @param $_serverId ServerID
+     * @param string $_dataCenterId DataCenterID
+     * @param string $_serverId ServerID
      * @return bool True on success
      * @throws Exception
      */
-    public function startServer($_dataCenterId, $_serverId)
+    public function startServer(string $_dataCenterId, string $_serverId): bool
     {
         return $this->startStopServer($_dataCenterId, $_serverId, "on");
     }
@@ -269,12 +277,12 @@ class ProfitBricksApi
     /**
      * Stops a server on IONOS
      *
-     * @param $_dataCenterId DataCenterID
-     * @param $_serverId ServerID
+     * @param string $_dataCenterId DataCenterID
+     * @param string $_serverId ServerID
      * @return bool True on success
      * @throws Exception
      */
-    public function stopServer($_dataCenterId, $_serverId)
+    public function stopServer(string $_dataCenterId, string $_serverId): bool
     {
         return $this->startStopServer($_dataCenterId, $_serverId, "off");
     }
@@ -284,11 +292,11 @@ class ProfitBricksApi
      *
      * @param string $_dataCenterId DataCenterID
      * @param string $_serverId ServerID
-     * @param string $_action On or off depending your wishes
+     * @param string $_action "On" or "off" dependent to your wishes
      * @return bool True on success
      * @throws Exception
      */
-    private function startStopServer($_dataCenterId, $_serverId, $_action = "on")
+    private function startStopServer(string $_dataCenterId, string $_serverId, string $_action): bool
     {
         if (strtolower($_action)=="on") $api = self::profitBricksServerStart;
         elseif (strtolower($_action)=="off") $api = self::profitBricksServerStop;
@@ -305,10 +313,10 @@ class ProfitBricksApi
         if (curl_exec($curl))
         {
             $response = curl_multi_getcontent($curl);
-            if (strpos($response, "HTTP/1.1 202 Accepted")===false)
+            if (!str_contains($response, "HTTP/2 202 Accepted"))
             {
                 $token = strtok($response, "\n");
-                throw new Exception((strpos($response, "HTTP/1.1 401 Unauthorized")!==false) ? $token."\nCredentials for IONOS are invalid!" : $token);
+                throw new Exception((str_contains($response, "HTTP/2 401 Unauthorized")) ? $token."\nCredentials for IONOS are invalid!" : $token);
             }
         }
         else
@@ -322,7 +330,7 @@ class ProfitBricksApi
     /**
      * @param string $_user
      */
-    public function setUserName($_user)
+    public function setUserName(string $_user): void
     {
         $this->user = $_user;
     }
@@ -330,7 +338,7 @@ class ProfitBricksApi
     /**
      * @param string $_password
      */
-    public function setPassword($_password)
+    public function setPassword(string $_password): void
     {
         $this->password = $_password;
     }

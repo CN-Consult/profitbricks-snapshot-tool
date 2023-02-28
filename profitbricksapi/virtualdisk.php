@@ -1,14 +1,17 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
  */
 
 namespace PBST\ProfitBricksApi;
+
+use DateTime;
+use DateTimeZone;
 
 /**
  * Class VirtualDisk is a quite simple data container which wrap all available values.
@@ -18,52 +21,50 @@ namespace PBST\ProfitBricksApi;
  */
 class VirtualDisk
 {
-    public $id;
-    //public $type;         //no need for this variable & it would exist twice
-    public $href;
-    public $createdDate;
-    public $createdBy;
-    public $etag;
-    public $lastModifiedDate;
-    public $lastModifiedBy;
-    public $state;
-    public $name;
-    public $type;
-    public $size;
-    public $availabilityZone;
-    public $image;
-    public $imagePassword;
-    public $sshKeys;
-    public $bus;
-    public $licenceType;
-    public $cpuHotPlug;
-    public $cpuHotUnplug;
-    public $ramHotPlug;
-    public $ramHotUnplug;
-    public $nicHotPlug;
-    public $nicHotUnplug;
-    public $discVirtioHotPlug;
-    public $discVirtioHotUnplug;
-    public $discScsiHotPlug;
-    public $discScsiHotUnplug;
-    public $deviceNumber;
+    public string $id;
+    public string $href;
+    public DateTime $createdDate;
+    public string $createdBy;
+    public string $etag;
+    public DateTime $lastModifiedDate;
+    public string $lastModifiedBy;
+    public string $state;
+    public string $name;
+    public string $type;
+    public string $size;
+    public string $availabilityZone;
+    public string $image;
+    public string $imagePassword;
+    public string $sshKeys;
+    public string $bus;
+    public string $licenceType;
+    public string $cpuHotPlug;
+    public string $cpuHotUnplug;
+    public string $ramHotPlug;
+    public string $ramHotUnplug;
+    public string $nicHotPlug;
+    public string $nicHotUnplug;
+    public string $discVirtioHotPlug;
+    public string $discVirtioHotUnplug;
+    public string $discScsiHotPlug;
+    public string $discScsiHotUnplug;
+    public string $deviceNumber;
     // custom variables
     /** @var Snapshot[] $snapshots */
-    public $snapshots;
-    public $numberSnapshots;
-    /** @var \DateTime $lastBackup */
-    public $lastSnapshotDate;
+    public array $snapshots;
+    public int $numberSnapshots;
+    public DateTime $lastSnapshotDate;
 
-    public function __construct($_virtualDisk)
+    public function __construct(object $_virtualDisk)
     {
         $this->id = $_virtualDisk->id;
         $this->href = $_virtualDisk->href;
-        $this->createdDate = new \DateTime($_virtualDisk->metadata->createdDate);
-        $this->createdDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $this->createdDate = new DateTime($_virtualDisk->metadata->createdDate);
+        $this->createdDate->setTimezone(new DateTimeZone(date_default_timezone_get()));
         $this->createdBy = $_virtualDisk->metadata->createdBy;
         $this->etag = $_virtualDisk->metadata->etag;
-        $this->lastModifiedDate = new \DateTime($_virtualDisk->metadata->lastModifiedDate);
-        $this->lastModifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $this->lastModifiedDate = new DateTime($_virtualDisk->metadata->lastModifiedDate);
+        $this->lastModifiedDate->setTimezone(new DateTimeZone(date_default_timezone_get()));
         $this->lastModifiedBy = $_virtualDisk->metadata->lastModifiedBy;
         $this->state = $_virtualDisk->metadata->state;
         $this->name = $_virtualDisk->properties->name;

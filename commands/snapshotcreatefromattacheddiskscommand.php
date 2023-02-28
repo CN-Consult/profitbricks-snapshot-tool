@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -10,7 +10,6 @@
 
 namespace PBST\Commands;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -26,13 +25,13 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 /**
  * Class SnapshotCreateFromAttachedDisksCommand
  *
- * With this command you can easy take snapshots form a specific server at once.
+ * With this command you can easily take snapshots form a specific server at once.
  */
 class SnapshotCreateFromAttachedDisksCommand extends CommandBase
 {
-    private $preDescription = "";
+    private string $preDescription = "";
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -42,7 +41,10 @@ class SnapshotCreateFromAttachedDisksCommand extends CommandBase
             ->addOption("description","d", InputOption::VALUE_REQUIRED, "This description will be added in front of the snapshot description.", null);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @throws Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         if ($input->getOption("description")!== null) $this->preDescription = $input->getOption("description");
         if ($input->getOption("quiet")=== false && count($input->getArgument("server"))===0)
@@ -94,12 +96,16 @@ class SnapshotCreateFromAttachedDisksCommand extends CommandBase
      * Initiates snapshot via ProfitBricksApi and returns its result.
      *
      * @param ProfitBricksApi $_profitBricksApi
-     * @param DataCenter      $_dataCenter
-     * @param VirtualMachine  $_virtualMachine
-     * @param VirtualDisk     $_virtualDisk
+     * @param DataCenter $_dataCenter
+     * @param VirtualMachine $_virtualMachine
+     * @param VirtualDisk $_virtualDisk
      * @return array          Result with disk and its membership
+     * @throws Exception
      */
-    private function snapshotResult(ProfitBricksApi $_profitBricksApi, DataCenter $_dataCenter, VirtualMachine $_virtualMachine, VirtualDisk $_virtualDisk)
+    private function snapshotResult(ProfitBricksApi $_profitBricksApi,
+                                    DataCenter $_dataCenter,
+                                    VirtualMachine $_virtualMachine,
+                                    VirtualDisk $_virtualDisk): array
     {
         if ($_profitBricksApi->makeSnapshot($_dataCenter, $_virtualMachine, $_virtualDisk, $this->preDescription))
             return array($_dataCenter->name, $_virtualMachine->name, $_virtualDisk->name, "snapshot initiated!");

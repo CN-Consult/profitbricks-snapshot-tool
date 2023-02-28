@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -10,6 +10,7 @@
 
 namespace PBST\Commands;
 
+use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -25,7 +26,7 @@ use DateInterval;
  */
 class SnapshotAutoCreateCommand extends CommandBase
 {
-    private $virtualMachineState;
+    private array $virtualMachineState;
 
     public function __construct()
     {
@@ -33,7 +34,7 @@ class SnapshotAutoCreateCommand extends CommandBase
         $this->virtualMachineState = array();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -41,7 +42,10 @@ class SnapshotAutoCreateCommand extends CommandBase
             ->setDescription("Creates a snapshot from all disks which are attached to a server when necessary.");
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @throws Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         /** @var DataCenter[] $dataCenters */
         $dataCenters = $this->profitBricksApi->dataCenters();
@@ -69,7 +73,7 @@ class SnapshotAutoCreateCommand extends CommandBase
                         $latestDiskBackupByScript = new DateTime("1980-01-01");
                         foreach ($snapshots as $snapshot)
                         {
-                            if (strpos($snapshot->name, $virtualDisk->name)!==false && strpos($snapshot->name, $virtualMachine->name)!==false)
+                            if (str_contains($snapshot->name, $virtualDisk->name) && str_contains($snapshot->name, $virtualMachine->name))
                             {
                                 if ($snapshot->createdDate > $latestDiskBackup) $latestDiskBackup = $snapshot->createdDate;
                                 if ($snapshot->autoScriptCreated && $snapshot->createdDate > $latestDiskBackupByScript) $latestDiskBackupByScript = $snapshot->createdDate;
@@ -79,7 +83,7 @@ class SnapshotAutoCreateCommand extends CommandBase
                         if ($latestDiskBackupByScript<$latestServerBackupByScript) $latestServerBackupByScript = $latestDiskBackupByScript;
                     }
                     $tableRows[] = array ($dataCenter->name, $virtualMachine->name, "YES  ".$this->config[$virtualMachine->name]["snapshotInterval"]." days", $latestServerBackup->format("d.m.Y"), $latestServerBackupByScript->format("d.m.Y"));
-                    // check if backup script did a backup and it is in time limit
+                    // check if backup script did a backup and if it is in time limit
                     $nextBackup = clone $latestServerBackupByScript;
                     $nextBackup->add(new DateInterval("P".$this->config[$virtualMachine->name]["snapshotInterval"]."D"));
                     $nextBackup->setTime(0,0,0);  //makes next backup only date depending

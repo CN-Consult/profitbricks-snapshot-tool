@@ -1,14 +1,17 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
  */
 
 namespace PBST\ProfitBricksApi;
+
+use DateTime;
+use DateTimeZone;
 
 /**
  * Class DataCenter is a quite simple data container which wrap all available values.
@@ -18,34 +21,36 @@ namespace PBST\ProfitBricksApi;
  */
 class DataCenter
 {
-    public $id;
-    public $type;
-    public $href;
-    public $createdDate;
-    public $createdBy;
-    public $etag;
-    public $lastModifiedDate;
-    public $lastModifiedBy;
-    public $name;
-    public $description;
-    public $location;
-    public $version;
-    public $features;
+    public string $id;
+    public string $type;
+    public string $href;
+    public DateTime $createdDate;
+    public string $createdBy;
+    public string $etag;
+    public DateTime $lastModifiedDate;
+    public string $lastModifiedBy;
+    public string $name;
+    public string $description = "";
+    public string $location;
+    public int    $version;
+    public array  $features;
+    public array  $virtualMachines;
 
-    public function __construct($_profitBricksDataCenter)
+    public function __construct(object $_profitBricksDataCenter)
     {
         $this->id = $_profitBricksDataCenter->id;
         $this->type = $_profitBricksDataCenter->type;
         $this->href = $_profitBricksDataCenter->href;
-        $this->createdDate = new \DateTime($_profitBricksDataCenter->metadata->createdDate);
-        $this->createdDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $this->createdDate = new DateTime($_profitBricksDataCenter->metadata->createdDate);
+        $this->createdDate->setTimezone(new DateTimeZone(date_default_timezone_get()));
         $this->createdBy = $_profitBricksDataCenter->metadata->createdBy;
         $this->etag = $_profitBricksDataCenter->metadata->etag;
-        $this->lastModifiedDate = new \DateTime($_profitBricksDataCenter->metadata->lastModifiedDate);
-        $this->lastModifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $this->lastModifiedDate = new DateTime($_profitBricksDataCenter->metadata->lastModifiedDate);
+        $this->lastModifiedDate->setTimezone(new DateTimeZone(date_default_timezone_get()));
         $this->lastModifiedBy = $_profitBricksDataCenter->metadata->lastModifiedBy;
         $this->name = $_profitBricksDataCenter->properties->name;
-        $this->description = $_profitBricksDataCenter->properties->description;
+        if ($_profitBricksDataCenter->properties->description)
+            $this->description = $_profitBricksDataCenter->properties->description;
         $this->location = $_profitBricksDataCenter->properties->location;
         $this->version = $_profitBricksDataCenter->properties->version;
         $this->features = $_profitBricksDataCenter->properties->features;

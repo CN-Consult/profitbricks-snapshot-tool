@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2019 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -26,7 +26,7 @@ class ServerStartCommand extends ServerCommandBase
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -35,7 +35,10 @@ class ServerStartCommand extends ServerCommandBase
             ->addArgument("serverNames", InputArgument::IS_ARRAY | InputArgument::REQUIRED, "Names or IDs of server, which should be started.");
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @throws \Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $this->setServerPowerState(ServerCommandBase::on, $input, $output);
     }

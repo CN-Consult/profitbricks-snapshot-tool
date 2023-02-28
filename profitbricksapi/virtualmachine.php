@@ -1,14 +1,16 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
  */
 
 namespace PBST\ProfitBricksApi;
+
+use DateTime;
 
 /**
  * Class VirtualMachine is a quite simple data container which wrap all available values.
@@ -18,37 +20,37 @@ namespace PBST\ProfitBricksApi;
  */
 class VirtualMachine
 {
-    public $id;
-    public $type;
-    public $href;
-    public $createdDate;
-    public $createdBy;
-    public $etag;
-    public $lastModifiedDate;
-    public $lastModifiedBy;
-    public $state;
-    public $name;
-    public $cores;
-    public $ram;
-    public $availabilityZone;
-    public $vmState;
-    public $bootCdrom;
+    public string $id;
+    public string $type;
+    public string $href;
+    public DateTime $createdDate;
+    public string $createdBy;
+    public string $etag;
+    public DateTime $lastModifiedDate;
+    public string $lastModifiedBy;
+    public string $state;
+    public string $name;
+    public string $cores;
+    public string $ram;
+    public string $availabilityZone;
+    public string $vmState;
+    public string $bootCdrom = "";
+    public array $virtualDisks;
     // custom variables
-    public $remainingSnapshots;
-    public $snapshotInterval;
-    /** @var /DateTime $latestFullSnapshot */
-    public $latestFullSnapshot;
+    public array $remainingSnapshots;
+    public int $snapshotInterval;
+    public DateTime $latestFullSnapshot;
 
     public function __construct($_profitBricksVM)
     {
         $this->id = $_profitBricksVM->id;
         $this->type = $_profitBricksVM->type;
         $this->href = $_profitBricksVM->href;
-        $this->createdDate = new \DateTime($_profitBricksVM->metadata->createdDate);
+        $this->createdDate = new DateTime($_profitBricksVM->metadata->createdDate);
         $this->createdDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         $this->createdBy = $_profitBricksVM->metadata->createdBy;
         $this->etag = $_profitBricksVM->metadata->etag;
-        $this->lastModifiedDate = new \DateTime($_profitBricksVM->metadata->lastModifiedDate);
+        $this->lastModifiedDate = new DateTime($_profitBricksVM->metadata->lastModifiedDate);
         $this->lastModifiedDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         $this->lastModifiedBy = $_profitBricksVM->metadata->lastModifiedBy;
         $this->state = $_profitBricksVM->metadata->state;
@@ -57,7 +59,8 @@ class VirtualMachine
         $this->ram = $_profitBricksVM->properties->ram;
         $this->availabilityZone = $_profitBricksVM->properties->availabilityZone;
         $this->vmState = $_profitBricksVM->properties->vmState;
-        $this->bootCdrom = $_profitBricksVM->properties->bootCdrom;
+        if ($_profitBricksVM->properties->bootCdrom)
+            $this->bootCdrom = $_profitBricksVM->properties->bootCdrom;
         $this->virtualDisks = array();
     }
 }

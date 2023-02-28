@@ -13,7 +13,7 @@ virtual disks and its snapshots. PBST covers the creation and deletion of snapsh
 with an automatic script much easier than in the web interface.
 ##### PBST method
 In a 1st step PBST is getting all information about data centers, virtual machines and its disks.
-Due to this dependencies PBST considers only connected disks for snapshots. Regarding to this
+Due to that dependencies PBST considers only connected disks for snapshots. Regard to this
 we can make snapshot from commandline for every server at once or for just one. This can be done
 by manual initiation or by cronjob.
 ##### Notification
@@ -23,7 +23,7 @@ The email address can be configured, which is explained in the chapter configura
 
 Installation
 ------------
-- PHP (tested on 5.5.10 successfully)
+- PHP (tested on 8.1.0 successfully)
 - Composer (to get symfony command framework)
 - finally the here provided files
 

@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -26,13 +26,13 @@ use Exception;
 class CommandBase extends Command
 {
 	/** @var string Path to the config file */
-	protected $configFile = __DIR__.'/../config.ini';
+	protected string $configFile = __DIR__.'/../config.ini';
 
 	/** @var string[][] IniConfig-representation as 2-dimensional array [iniSection][keyName] -> value */
-	protected $config;
+	protected array $config;
 
 	/** @var ProfitBricksApi Reference to the ProfitBricks API which provides functions that are used in the commands */
-	protected $profitBricksApi;
+	protected ProfitBricksApi $profitBricksApi;
 
 	/**
 	 * @inheritdoc
@@ -41,7 +41,7 @@ class CommandBase extends Command
 	 *
 	 * When implementing an own command, do NOT forget to call parent::configure() for having the basic things here done.
 	 */
-	protected function configure()
+	protected function configure(): void
 	{
 		$this
 			->setName("pbst:cmdBase")
@@ -65,10 +65,10 @@ class CommandBase extends Command
     /**
      * Calculates from GB to TB with german decimal sign style.
      *
-     * @param $_size
+     * @param int $_size
      * @return string Output format german decimal style with one digit behind comma.
      */
-    protected function formatSize($_size)
+    protected function formatSize(int $_size): string
     {
         $size = ceil($_size / 100);
         $size = $size / 10;

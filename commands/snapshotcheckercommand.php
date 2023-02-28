@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -10,13 +10,9 @@
 
 namespace PBST\Commands;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use PBST\ProfitBricksApi\ProfitBricksApi;
-use PBST\ProfitBricksApi\VirtualMachine;
-use PBST\ProfitBricksApi\Snapshot;
 use Exception;
 
 /**
@@ -26,9 +22,7 @@ use Exception;
  */
 class SnapshotCheckerCommand extends CommandBase
 {
-    //private $config;
-
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -37,7 +31,10 @@ class SnapshotCheckerCommand extends CommandBase
             ->setDescription("Checks, if all snapshots of a server have been done and send success notification.");
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @throws Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $snapshots = $this->profitBricksApi->snapshots();
 
@@ -55,17 +52,21 @@ class SnapshotCheckerCommand extends CommandBase
                 $available = true;
                 $snapshotDateTimes = "";
                 foreach ($snapshotStates as $snapshotId => $snapshotState) {
-                    if (array_key_exists($snapshotId, $snapshots) && $snapshotState != $snapshots[$snapshotId]->state) {
+                    if (array_key_exists($snapshotId, $snapshots) && $snapshotState != $snapshots[$snapshotId]->state)
+                    {
                         $virtualMachineState[$virtualMachineId][$snapshotId] = $snapshots[$snapshotId]->state;
                         $valueChanged = true;
                     }
                     if ($virtualMachineState[$virtualMachineId][$snapshotId] != "AVAILABLE") $available = false;
-                    else if (array_key_exists($snapshotId, $snapshots)) $snapshotDateTimes .= $snapshots[$snapshotId]->createdDate->format("Y-m-d H:i") . "; ";
+                    else if (array_key_exists($snapshotId, $snapshots))
+                        $snapshotDateTimes .= $snapshots[$snapshotId]->createdDate->format("Y-m-d H:i") . "; ";
                 }
-                if ($valueChanged && $available) {
+                if ($valueChanged && $available)
+                {
                     $action = "mail sent!";
                     $this->sendMailForSnapshotVMs($virtualMachineId, $virtualMachines[$virtualMachineId]->name, $snapshotDateTimes);
-                } else $action = "nothing to do!";
+                }
+                else $action = "nothing to do!";
                 $tableRows[] = array($virtualMachines[$virtualMachineId]->name, $action);
             }
             $io->table(array("Server", "Action"), $tableRows);
@@ -79,7 +80,9 @@ class SnapshotCheckerCommand extends CommandBase
      * @param string $_backupDateTimes DateTimess of the last successfully backups/snapshots
      * @throws Exception
      */
-    private function sendMailForSnapshotVMs($_virtualMachineId, $_virtualMachineName, $_backupDateTimes)
+    private function sendMailForSnapshotVMs(string $_virtualMachineId,
+                                            string $_virtualMachineName,
+                                            string $_backupDateTimes): void
     {
         $receiver =  $this->config["mail"]["to"];
         $subject = $_virtualMachineName . " snapshot success";
@@ -88,6 +91,7 @@ class SnapshotCheckerCommand extends CommandBase
             "ID: " . $_virtualMachineId . "\r\n" .
             "LastBackups: " . $_backupDateTimes . "\r\n";
         $headers = "From: ". $this->config["mail"]["from"];
-        if (!mail($receiver, $subject, $message, $headers)) throw new Exception("Error during sending email to $receiver!");
+        if (!mail($receiver, $subject, $message, $headers))
+            throw new Exception("Error during sending email to $receiver!");
     }
 }

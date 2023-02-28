@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -10,7 +10,7 @@
 
 namespace PBST\Commands;
 
-use Symfony\Component\Console\Command\Command;
+use DateTime;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -18,8 +18,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Helper\TableStyle;
-use PBST\ProfitBricksApi\ProfitBricksApi;
-use PBST\ProfitBricksApi\Snapshot;
 use Exception;
 
 /**
@@ -29,15 +27,15 @@ use Exception;
  */
 class SnapshotListCommand extends CommandBase
 {
-    private $before;
+    private DateTime $before;
 
     public function __construct()
     {
         parent::__construct();
-        $this->before = new \DateTime();
+        $this->before = new DateTime();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -46,17 +44,25 @@ class SnapshotListCommand extends CommandBase
             ->addOption("before","b", InputOption::VALUE_REQUIRED, "lists all snapshot before this date time!", null);
     }
 
+    /**
+     * @throws Exception
+     */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
         parent::interact($input, $output);
         if ($input->getOption("before")!==null)
         {
-            if (strtotime($input->getOption("before"))===false) $output->writeln("Before must be a valid date time.");
-            else $this->before = new \DateTime($input->getOption("before"));
+            if (strtotime($input->getOption("before")) === false)
+                $output->writeln("Before must be a valid date time.");
+            else
+                $this->before = new DateTime($input->getOption("before"));
         }
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @throws Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $snapShots = $this->profitBricksApi->snapshots();
         if ($snapShots!==false)
@@ -72,7 +78,14 @@ class SnapshotListCommand extends CommandBase
                 $snapshotDate = $snapShot->createdDate;
                 if ($snapshotDate<$this->before)
                 {
-                    $rows[] = array ($snapShot->id, $snapShot->name, $snapShot->description, $snapshotDate->format("d.m.Y H:i"), $snapShot->size." GB", $snapShot->state);
+                    $rows[] = array (
+                        $snapShot->id,
+                        $snapShot->name,
+                        $snapShot->description,
+                        $snapshotDate->format("d.m.Y H:i"),
+                        $snapShot->size." GB",
+                        $snapShot->state
+                    );
                     $sumSize += (int)$snapShot->size;
                     $sumCount += 1;
                 }

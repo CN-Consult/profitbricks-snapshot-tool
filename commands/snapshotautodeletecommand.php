@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -10,14 +10,12 @@
 
 namespace PBST\Commands;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use PBST\ProfitBricksApi\ProfitBricksApi;
 use PBST\ProfitBricksApi\VirtualMachine;
 use PBST\ProfitBricksApi\Snapshot;
 use DateTime;
@@ -30,10 +28,10 @@ use Exception;
  */
 class SnapshotAutoDeleteCommand extends CommandBase
 {
-    /** @var null|VirtualMachine[] $virtualMachines */
-    private $virtualMachines = null;
+    /** @var VirtualMachine[] $virtualMachines */
+    private array $virtualMachines = array();
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -41,10 +39,13 @@ class SnapshotAutoDeleteCommand extends CommandBase
             ->setDescription("Deletes snapshots regarding to the configuration in config.ini!");
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @throws Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $snapshots = $this->profitBricksApi->snapshots();
-        if ($snapshots != false && count($snapshots)>0)
+        if ($snapshots && count($snapshots)>0)
         {
             $io =  new SymfonyStyle($input, $output);
             $io->title("Snapshots automatic deletion  ".date("d.m.Y H:i:s"));
@@ -102,11 +103,11 @@ class SnapshotAutoDeleteCommand extends CommandBase
      * @param Snapshot $snapshot The snapshot, for which a VM should be found.
      * @return bool|VirtualMachine False or the VM
      */
-    private function getVirtualMachineFor(Snapshot $snapshot)
+    private function getVirtualMachineFor(Snapshot $snapshot): bool|VirtualMachine
     {
         foreach ($this->virtualMachines as $virtualMachine)
         {
-            if (strpos($snapshot->name, $virtualMachine->name)!==false)
+            if (str_contains($snapshot->name, $virtualMachine->name))
                 return $virtualMachine;
         }
         return false;
@@ -115,7 +116,7 @@ class SnapshotAutoDeleteCommand extends CommandBase
     /**
      * Get all VMs from ProfitBricks into the class member.
      */
-    private function readVirtualMachinesOnce()
+    private function readVirtualMachinesOnce(): void
     {
         $virtualMachines = array();
         foreach ($this->profitBricksApi->dataCenters() as $dataCenter)

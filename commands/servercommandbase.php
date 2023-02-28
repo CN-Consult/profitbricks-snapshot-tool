@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2019 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -40,8 +40,9 @@ class ServerCommandBase extends CommandBase
      * @param OutputInterface $_output Symfony Output Interface
      * @throws Exception The exception is handled by symfony
      */
-    protected function setServerPowerState($_serverState, InputInterface $_input, OutputInterface $_output)
+    protected function setServerPowerState(int $_serverState, InputInterface $_input, OutputInterface $_output): void
     {
+        $servers = array();
         foreach ($_input->getArgument("serverNames") as $server)
         {
             $servers[] = array("server" => $server, "byID" => false, "byName" => false);
@@ -63,7 +64,7 @@ class ServerCommandBase extends CommandBase
                             case self::off: $this->profitBricksApi->stopServer($dataCenter->id, $virtualMachine->id);
                                             break;
                         }
-                        $servers[$index]['byID']=true;
+                        $servers[$index]['byID'] = true;
                         $tableColumns[] = array ($dataCenter->name, $virtualMachine->id, $virtualMachine->name, "ID");
                     }
                     if ($server["server"] == $virtualMachine->name)
@@ -75,7 +76,7 @@ class ServerCommandBase extends CommandBase
                             case self::off: $this->profitBricksApi->stopServer($dataCenter->id, $virtualMachine->id);
                                             break;
                         }
-                        $servers[$index]['byName']=true;
+                        $servers[$index]['byName'] = true;
                         $tableColumns[] = array ($dataCenter->name, $virtualMachine->id, $virtualMachine->name, "Name");
                     }
                 }
@@ -88,12 +89,12 @@ class ServerCommandBase extends CommandBase
             $io->title("Virtual Machines");
             $io->table($tableHeaders, $tableColumns);
         }
-        //Check if all arguments have been matched
+        // Check if all arguments have been matched
         $matchedAllArguments = true;
         $tableColumns = array ();
         foreach ($servers as $server)
         {
-            if ($server["byID"] == false and $server["byName"] == false) $matchedAllArguments = false;
+            if ($server["byID"] === false and $server["byName"] === false) $matchedAllArguments = false;
             $tableColumns[] = array ($server["server"], ($server["byID"] ? "true" : "false"), ($server["byName"] ? "true" : "false"));
         }
         if (!$matchedAllArguments) $_output->writeln("<error>Did not found all arguments!</>");

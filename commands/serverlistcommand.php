@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -10,6 +10,7 @@
 
 namespace PBST\Commands;
 
+use Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -21,7 +22,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 class ServerListCommand extends CommandBase
 {
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -29,7 +30,10 @@ class ServerListCommand extends CommandBase
             ->setDescription("Lists all servers from ProfitBricks!");
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @throws Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $dataCenters = $this->profitBricksApi->dataCenters();
         $io =  new SymfonyStyle($input, $output);

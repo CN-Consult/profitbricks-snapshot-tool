@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.1
- * @copyright 2017 CN-Consult GmbH
+ * @version 0.2
+ * @copyright 2023 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -10,7 +10,7 @@
 
 namespace PBST\Commands;
 
-use Symfony\Component\Console\Command\Command;
+use DateTime;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableStyle;
@@ -20,7 +20,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use PBST\ProfitBricksApi\ProfitBricksApi;
 use Exception;
 
 /**
@@ -30,15 +29,15 @@ use Exception;
  */
 class SnapshotDeleteCommand extends CommandBase
 {
-    private $deleteBeforeTimestamp;
+    private DateTime $deleteBeforeTimestamp;
 
     public function __construct()
     {
         parent::__construct();
-        $this->deleteBeforeTimestamp = new \DateTime();
+        $this->deleteBeforeTimestamp = new DateTime();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -48,7 +47,10 @@ class SnapshotDeleteCommand extends CommandBase
             ->addOption("before","b", InputOption::VALUE_REQUIRED, "lists all snapshot before this date time!", null);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * @throws Exception
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         if ($input->getOption("before")!==null)
         {
@@ -56,7 +58,7 @@ class SnapshotDeleteCommand extends CommandBase
                 throw new Exception("Before must be a valid date time!");
             else
             {
-                $this->deleteBeforeTimestamp = new \DateTime($input->getOption("before"));
+                $this->deleteBeforeTimestamp = new DateTime($input->getOption("before"));
                 $questionOutput = "This will delete every snapshot before ".$this->deleteBeforeTimestamp->format("d.m.Y H:i")."!";
             }
         }

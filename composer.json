@@ -3,7 +3,9 @@
     "description": "ProfitBricks Snapshot Tool",
     "type": "library",
     "require": {
-        "symfony/console": "^3.1"
+        "symfony/console": "^3.1",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "authors": [
         {

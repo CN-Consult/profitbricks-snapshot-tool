@@ -158,7 +158,7 @@ class ProfitBricksApi
             else
             {
                 $token = strtok($response, "\n");
-                throw new Exception((str_contains($response, "HTTP/2 401 Unauthorized")) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
+                throw new Exception((str_contains($response, "HTTP/2 401")) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
             }
         }
         else
@@ -204,7 +204,7 @@ class ProfitBricksApi
         if (curl_exec($curl))
         {
             $response = curl_multi_getcontent($curl);
-            if (str_contains($response, "HTTP/2 202 Accepted"))
+            if (str_contains($response, "HTTP/2 202"))
             {
                 while (!preg_match('/^\{.*/', $response))
                 {
@@ -216,7 +216,7 @@ class ProfitBricksApi
             else
             {
                 $token = strtok($response, "\n");
-                throw new Exception((str_contains($response, "HTTP/2 401 Unauthorized")) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
+                throw new Exception((str_contains($response, "HTTP/2 401")) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
             }
         }
         else
@@ -247,10 +247,10 @@ class ProfitBricksApi
         if (curl_exec($curl))
         {
             $response = curl_multi_getcontent($curl);
-            if (!str_contains($response, "HTTP/2 202 Accepted"))
+            if (!str_contains($response, "HTTP/2 202"))
             {
                 $token = strtok($response, "\n");
-                throw new Exception((str_contains($response, "HTTP/2 401 Unauthorized")) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
+                throw new Exception((str_contains($response, "HTTP/2 401")) ? $token."\nCredentials for ProfitBricks are invalid!" : $token);
             }
         }
         else
@@ -313,10 +313,10 @@ class ProfitBricksApi
         if (curl_exec($curl))
         {
             $response = curl_multi_getcontent($curl);
-            if (!str_contains($response, "HTTP/2 202 Accepted"))
+            if (!str_contains($response, "HTTP/2 202"))
             {
                 $token = strtok($response, "\n");
-                throw new Exception((str_contains($response, "HTTP/2 401 Unauthorized")) ? $token."\nCredentials for IONOS are invalid!" : $token);
+                throw new Exception((str_contains($response, "HTTP/2 401")) ? $token."\nCredentials for IONOS are invalid!" : $token);
             }
         }
         else

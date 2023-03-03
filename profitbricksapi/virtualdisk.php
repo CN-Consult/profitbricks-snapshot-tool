@@ -33,9 +33,9 @@ class VirtualDisk
     public string $type;
     public string $size;
     public string $availabilityZone;
-    public string $image;
-    public string $imagePassword;
-    public string $sshKeys;
+    public string|null $image;
+    public string|null $imagePassword;
+    public string|null $sshKeys;
     public string $bus;
     public string $licenceType;
     public string $cpuHotPlug;

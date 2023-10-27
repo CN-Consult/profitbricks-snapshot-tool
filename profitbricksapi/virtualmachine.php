@@ -10,6 +10,7 @@
 
 namespace PBST\ProfitBricksApi;
 
+use stdClass;
 use DateTime;
 
 /**
@@ -34,7 +35,7 @@ class VirtualMachine
     public string $ram;
     public string $availabilityZone;
     public string $vmState;
-    public string $bootCdrom = "";
+    public stdClass $bootCdrom;
     public array $virtualDisks;
     // custom variables
     public array $remainingSnapshots;

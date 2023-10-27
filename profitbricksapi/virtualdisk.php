@@ -33,21 +33,14 @@ class VirtualDisk
     public string $type;
     public string $size;
     public string $availabilityZone;
-    public string|null $image;
-    public string|null $imagePassword;
-    public string|null $sshKeys;
     public string $bus;
     public string $licenceType;
     public string $cpuHotPlug;
-    public string $cpuHotUnplug;
     public string $ramHotPlug;
-    public string $ramHotUnplug;
     public string $nicHotPlug;
     public string $nicHotUnplug;
     public string $discVirtioHotPlug;
     public string $discVirtioHotUnplug;
-    public string $discScsiHotPlug;
-    public string $discScsiHotUnplug;
     public string $deviceNumber;
     // custom variables
     /** @var Snapshot[] $snapshots */
@@ -71,21 +64,14 @@ class VirtualDisk
         $this->type = $_virtualDisk->properties->type;
         $this->size = $_virtualDisk->properties->size;
         $this->availabilityZone = $_virtualDisk->properties->availabilityZone;
-        $this->image = $_virtualDisk->properties->image;
-        $this->imagePassword = $_virtualDisk->properties->imagePassword;
-        $this->sshKeys = $_virtualDisk->properties->sshKeys;
         $this->bus = $_virtualDisk->properties->bus;
         $this->licenceType = $_virtualDisk->properties->licenceType;
         $this->cpuHotPlug = $_virtualDisk->properties->cpuHotPlug;
-        $this->cpuHotUnplug = $_virtualDisk->properties->cpuHotUnplug;
         $this->ramHotPlug = $_virtualDisk->properties->ramHotPlug;
-        $this->ramHotUnplug = $_virtualDisk->properties->ramHotUnplug;
         $this->nicHotPlug = $_virtualDisk->properties->nicHotPlug;
         $this->nicHotUnplug = $_virtualDisk->properties->nicHotUnplug;
         $this->discVirtioHotPlug = $_virtualDisk->properties->discVirtioHotPlug;
         $this->discVirtioHotUnplug = $_virtualDisk->properties->discVirtioHotUnplug;
-        $this->discScsiHotPlug = $_virtualDisk->properties->discScsiHotPlug;
-        $this->discScsiHotUnplug = $_virtualDisk->properties->discScsiHotUnplug;
         $this->deviceNumber = $_virtualDisk->properties->deviceNumber;
         // custom
         $this->snapshots = array();
@@ -95,6 +81,8 @@ class VirtualDisk
 }
 
 /**
+ *  OUTDATED API DESCRIPTION !!!
+ *
  *  This object class is filled by values submitted by ProfitBricksAPI. Not all values are important.
  *  The original values are:
  *  $disk                                   Array

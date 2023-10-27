@@ -1,5 +1,11 @@
 PBST (ProfitBricks snapshot tool)
 =================================
+!!! Outdated !!!
+----------------
+This project is not anymore under maintenance.
+We changed our backup strategy due to the IONOS storage costs. Therefore, we do not need anymore
+a snapshot tool, which can automatically create snapshots.
+
 Synopsis
 --------
 This script was created to manage automatic snapshot creation from virtual disks connected to

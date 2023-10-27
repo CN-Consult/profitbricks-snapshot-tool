@@ -20,14 +20,14 @@ class ProfitBricksApi
 {
     private string $user = "";
     private string $password = "";
-    const profitBricksSnapshotApi = "https://api.profitbricks.com/cloudapi/v3/snapshots?depth=1";
-    const profitBricksDataCenterApi = "https://api.profitbricks.com/cloudapi/v3/datacenters?depth=2";
-    const profitBricksServerApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/{data-center-id}/servers?depth=2";
-    const profitBricksDiskApi = "https://api.profitbricks.com/cloudapi/v3/datacenters/{data-center-id}/servers/{server-id}/volumes?depth=1";
-    const profitBricksDeleteSnapshot = "https://api.profitbricks.com/cloudapi/v3/snapshots/{snapshot-id}";
-    const profitBricksCreateSnapshot = "https://api.profitbricks.com/cloudapi/v3/datacenters/{data-center-id}/volumes/{volume-id}/create-snapshot";
-    const profitBricksServerStart = "https://api.profitbricks.com/cloudapi/v4/datacenters/{dataCenterId}/servers/{serverId}/start";
-    const profitBricksServerStop = "https://api.profitbricks.com/cloudapi/v4/datacenters/{dataCenterId}/servers/{serverId}/stop";
+    const profitBricksSnapshotApi = "https://api.ionos.com/cloudapi/v6/snapshots?depth=1";
+    const profitBricksDataCenterApi = "https://api.ionos.com/cloudapi/v6/datacenters?depth=2";
+    const profitBricksServerApi = "https://api.ionos.com/cloudapi/v6/datacenters/{data-center-id}/servers?depth=2";
+    const profitBricksDiskApi = "https://api.ionos.com/cloudapi/v6/datacenters/{data-center-id}/servers/{server-id}/volumes?depth=1";
+    const profitBricksDeleteSnapshot = "https://api.ionos.com/cloudapi/v6/snapshots/{snapshot-id}";
+    const profitBricksCreateSnapshot = "https://api.ionos.com/cloudapi/v6/datacenters/{data-center-id}/volumes/{volume-id}/create-snapshot";
+    const profitBricksServerStart = "https://api.ionos.com/cloudapi/v6/datacenters/{dataCenterId}/servers/{serverId}/start";
+    const profitBricksServerStop = "https://api.ionos.com/cloudapi/v6/datacenters/{dataCenterId}/servers/{serverId}/stop";
 
     /**
      * Reads all information about snapshots from ProfitBricks into usable objects.

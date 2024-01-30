@@ -49,7 +49,7 @@ There is an self explained example file delivered with this repository.
 #### HOW-TO
 Command usage is depending on your operating system.
 
-List commands give you a small overview and you can test with it the validity of your configuration.
+List commands give you a small overview, and you can test with it the validity of your configuration.
 - php pbst.php servers:list
 - php bpst.php disk:list
 - php pbst.php snapshot:list
@@ -67,6 +67,16 @@ The auto deletion script deletes only snapshots created by auto creation command
 are marked and identified with leading "Auto-Script:" text in its description. This behaviour
 does not match to the manual deletion.
 Multiple runs of auto creation per day can destroy the notification. So don't do so!
+
+##### Docker Command
+```
+docker run --rm -it --name pbst -h pbst \
+  -v config:/etc/pbst \
+  -v data:/var/opt/pbst \
+  -v log:/var/log \
+  pbst:1.0 <command>
+```
+Command is on of `snapshot:list`, `server:list`, ...
 
 Contributors
 ------------

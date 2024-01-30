@@ -1,6 +1,6 @@
 /.idea
 /vendor
 /.vagrant
-/vagrant/VagrantConfig.json
-/*.log
-/config.ini
+/log
+/data
+/config/config.ini

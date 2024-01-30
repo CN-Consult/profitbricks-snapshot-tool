@@ -1,0 +1,9 @@
+/.vagrant
+/.dockerignore
+/config*
+/Dockerfile
+/output.txt
+/Vagrant*
+/vendor/*
+/log
+/data

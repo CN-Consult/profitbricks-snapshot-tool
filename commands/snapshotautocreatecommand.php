@@ -1,8 +1,8 @@
 <?php
 /**
  * @file
- * @version 0.2
- * @copyright 2023 CN-Consult GmbH
+ * @version 1.0
+ * @copyright 2024 CN-Consult GmbH
  * @author Jens Stahl <jens.stahl@cn-consult.eu>
  *
  * License: Please check the LICENSE file for more information.
@@ -91,11 +91,14 @@ class SnapshotAutoCreateCommand extends CommandBase
                         ((strtolower($now->format("l"))==strtolower($this->config[$virtualMachine->name]["snapshotStartDay"]) ||
                         strtolower($now->format("D"))==strtolower($this->config[$virtualMachine->name]["snapshotStartDay"])))) ||
                         ((int)$latestServerBackupByScript->format("Y") > 2000 && $now >= $nextBackup)) //or backup interval matches
-                    foreach ($virtualDisks as $virtualDisk)
-                    {// make the snapshots
-                        $snapshot = $this->profitBricksApi->makeSnapshot($dataCenter, $virtualMachine, $virtualDisk, "Auto-Script: ");
-                        $this->virtualMachineState[$virtualMachine->id][$snapshot->id] = "initiated";
-                        $tableRows[] = array ("", "Disk ".$virtualDisk->name, "", "", "done!");
+                    {
+                        $this->virtualMachineState[$virtualMachine->id] = array();
+                        foreach ($virtualDisks as $virtualDisk)
+                        {// make the snapshots
+                            $snapshot = $this->profitBricksApi->makeSnapshot($dataCenter, $virtualMachine, $virtualDisk, "Auto-Script: ");
+                            $this->virtualMachineState[$virtualMachine->id][$snapshot->id] = "initiated";
+                            $tableRows[] = array ("", "Disk ".$virtualDisk->name, "", "", "done!");
+                        }
                     }
                 }
 
@@ -103,6 +106,6 @@ class SnapshotAutoCreateCommand extends CommandBase
             }
         }
         $io->table($tableHeader, $tableRows);
-        file_put_contents(__DIR__."/checker.sav", serialize($this->virtualMachineState));
+        file_put_contents("/var/opt/pbst/checker.sav", serialize($this->virtualMachineState));
     }
 }

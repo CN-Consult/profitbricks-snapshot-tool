@@ -26,7 +26,8 @@ use Exception;
 class CommandBase extends Command
 {
 	/** @var string Path to the config file */
-	protected string $configFile = __DIR__.'/../config.ini';
+	// protected string $configFile = __DIR__.'/../config.ini';
+    protected string $configFile = "/etc/pbst/config.ini";
 
 	/** @var string[][] IniConfig-representation as 2-dimensional array [iniSection][keyName] -> value */
 	protected array $config;

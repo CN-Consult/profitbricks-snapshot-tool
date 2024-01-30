@@ -13,10 +13,10 @@ require_once ("vendor/autoload.php");
 use Symfony\Component\Console\Application;
 
 /**
- * Custom auto loader for own files.
+ * Custom autoloader for own files.
  * @param string $_className The name of the class that gets sourced.
  */
-function customAutoLoader($_className)
+function customAutoLoader(string $_className): void
 {
     $strippedClassName = strtolower(substr($_className, strrpos($_className, '\\') + 1));
     foreach (array(".", "commands", "profitbricksapi") as $directory)

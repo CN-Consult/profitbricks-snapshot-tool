@@ -74,9 +74,25 @@ docker run --rm -it --name pbst -h pbst \
   -v config:/etc/pbst \
   -v data:/var/opt/pbst \
   -v log:/var/log \
-  pbst:1.0 <command>
+  cnconsult/pbst:1.0 <command>
 ```
 Command is on of `snapshot:list`, `server:list`, ...
+
+##### Development
+Install composer dependencies for your development environment:
+1. Create the docker image with the provided Dockerfile</br>
+`docker build -t cnconsult/pbst:1.0 .`
+2. Use this image for installing the composer dependencies
+```docker
+docker run \
+  --rm -it \
+  -v /my/current/path/profitbricks-snapshot-tool:/mnt \
+  --entrypoint /usr/bin/bash cnconsult/pbst:1.0
+```
+```bash
+cd /mnt
+composer install
+```
 
 Contributors
 ------------

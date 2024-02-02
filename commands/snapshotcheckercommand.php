@@ -13,6 +13,7 @@ namespace PBST\Commands;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use PHPMailer\PHPMailer\PHPMailer;
 use Exception;
 
 /**
@@ -72,10 +73,19 @@ class SnapshotCheckerCommand extends CommandBase
                 }
                 if ($valueChanged && $available)
                 {
-                    $this->sendMailForSnapshotVMs($virtualMachineId, $virtualMachines[$virtualMachineId]->name, $snapshotDateTimes);
-                    $action = "mail sent!";
+                    if ($this->sendMailForSnapshotVMs($virtualMachineId, $virtualMachines[$virtualMachineId]->name, $snapshotDateTimes))
+                    {
+                        $action = "mail sent!";
+                    }
+                    else
+                    {
+                        $action = "mail sending failed";
+                    }
                 }
-                else $action = "nothing to do!";
+                else
+                {
+                    $action = "nothing to do!";
+                }
                 $tableRows[] = array($virtualMachines[$virtualMachineId]->name, $action);
             }
             $io->table(array("Server", "Action"), $tableRows);
@@ -88,21 +98,38 @@ class SnapshotCheckerCommand extends CommandBase
      * @param string $_virtualMachineId ID of the VM for which a mail has to be sent
      * @param string $_virtualMachineName Name of the VM for which a mail has to be sent
      * @param string $_backupDateTimes DateTimes of the last successfully backups/snapshots
-     * @throws Exception
+     * @return bool True for successfully sent email
      */
     private function sendMailForSnapshotVMs(string $_virtualMachineId,
                                             string $_virtualMachineName,
-                                            string $_backupDateTimes): void
+                                            string $_backupDateTimes): bool
     {
-        $receiver =  $this->config["mail"]["to"];
-        $subject = $_virtualMachineName . " snapshot success";
-        $message = "ProfitBricks Snapshot has been made today!\r\n";
-        $message .= "Server: " . $_virtualMachineName . "\r\n" .
+        $mailSendingSucceeded = true;
+        $message = "ProfitBricks Snapshot has been made today!\r\n" .
+            "Server: " . $_virtualMachineName . "\r\n" .
             "ID: " . $_virtualMachineId . "\r\n" .
             "LastBackups: " . $_backupDateTimes . "\r\n";
-        $headers = "From: ". $this->config["mail"]["from"];
-        if (!mail($receiver, $subject, $message, $headers))
-            throw new Exception("Error during sending email to $receiver!");
+
+        try
+        {
+            $mailer = new PHPMailer();
+            $mailer->IsSMTP();
+            $mailer->CharSet  = 'UTF-8';
+            $mailer->Host     = $this->config["mail"]["server"];
+            $mailer->SMTPAuth = false;
+            $mailer->setFrom($this->config["mail"]["from"]);
+            $mailer->addAddress($this->config["mail"]["to"]);
+            $mailer->isHTML(false);
+            $mailer->Subject  = $_virtualMachineName . " snapshot success";
+            $mailer->Body     = $message;
+
+            $mailer->send();
+        }
+        catch (\Exception $exception)
+        {
+            $mailSendingSucceeded = false;
+        }
+        return $mailSendingSucceeded;
     }
 
     /**
@@ -111,11 +138,11 @@ class SnapshotCheckerCommand extends CommandBase
      * This function has also a small error handling. This was needed due to many PHP errors which claims there was
      * no more free disk space available.
      *
-     * @param object $_virtualMachineState
+     * @param array $_virtualMachineState
      * @param OutputInterface $output
      * @return void
      */
-    private function saveCurrentWorkProgress(object $_virtualMachineState, OutputInterface $output): void
+    private function saveCurrentWorkProgress(array $_virtualMachineState, OutputInterface $output): void
     {
         if (file_put_contents($this->filePathCheckerFile, serialize($_virtualMachineState)) === false)
         {

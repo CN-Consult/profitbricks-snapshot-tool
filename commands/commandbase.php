@@ -10,6 +10,7 @@
 
 namespace PBST\Commands;
 
+use DateTime;
 use Symfony\Component\Console\Command\Command;
 use PBST\ProfitBricksApi\ProfitBricksApi;
 use Exception;
@@ -50,17 +51,37 @@ class CommandBase extends Command
 
 		if (is_readable($this->configFile))
 		{
+            $this->profitBricksApi = new ProfitBricksApi();
 			$this->config = parse_ini_file($this->configFile, true);
-			if (!isset($this->config['api']['user']) || !isset($this->config['api']['password']))
+            $authenticationDataPresent = false;
+			if (isset($this->config['api']['user']) && isset($this->config['api']['password']))
 			{
-				throw new Exception("No user or no password configured to connect ProfitBricks!");
+                $authenticationDataPresent = true;
+                $this->profitBricksApi->setUserName($this->config["api"]["user"]);
+                $this->profitBricksApi->setPassword($this->config["api"]["password"]);
 			}
+            if (isset($this->config['api']['tokenId']) && isset($this->config['api']['token']) &&
+                isset($this->config['api']['tokenExpires']))
+            {
+                $now = new DateTime();
+                $tokenExpiration = new DateTime($this->config['api']['tokenExpires']);
+                if ($tokenExpiration >= $now)
+                {
+                    $authenticationDataPresent = true;
+                    $this->profitBricksApi->setToken($this->config["api"]["token"]);
+                }
+                else
+                {
+                    $tokenID = $this->config['api']['tokenId'];
+                    throw new Exception("IONOS authentication token '$tokenID' is expired! Get a new one!");
+                }
+            }
+            if (!$authenticationDataPresent)
+            {
+                throw new Exception("No authentication data present!");
+            }
 		}
 		else throw new Exception("Error during reading config at '".$this->configFile."''");
-
-		$this->profitBricksApi = new ProfitBricksApi();
-		$this->profitBricksApi->setUserName($this->config["api"]["user"]);
-		$this->profitBricksApi->setPassword($this->config["api"]["password"]);
 	}
 
     /**

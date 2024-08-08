@@ -20,6 +20,7 @@ class ProfitBricksApi
 {
     private string $user = "";
     private string $password = "";
+    private string $token = "";
     const profitBricksSnapshotApi = "https://api.ionos.com/cloudapi/v6/snapshots?depth=1";
     const profitBricksDataCenterApi = "https://api.ionos.com/cloudapi/v6/datacenters?depth=2";
     const profitBricksServerApi = "https://api.ionos.com/cloudapi/v6/datacenters/{data-center-id}/servers?depth=2";
@@ -28,6 +29,19 @@ class ProfitBricksApi
     const profitBricksCreateSnapshot = "https://api.ionos.com/cloudapi/v6/datacenters/{data-center-id}/volumes/{volume-id}/create-snapshot";
     const profitBricksServerStart = "https://api.ionos.com/cloudapi/v6/datacenters/{dataCenterId}/servers/{serverId}/start";
     const profitBricksServerStop = "https://api.ionos.com/cloudapi/v6/datacenters/{dataCenterId}/servers/{serverId}/stop";
+
+    private function authenticationString(): string
+    {
+        if ($this->token !== "")
+        {
+            return "Authorization: Bearer $this->token";
+        }
+        else
+        {
+            $authorisation = base64_encode($this->user.":".$this->password);
+            return "Authorization: Basic $authorisation";
+        }
+    }
 
     /**
      * Reads all information about snapshots from ProfitBricks into usable objects.
@@ -135,13 +149,12 @@ class ProfitBricksApi
      */
     private function readFromProfitBricks(string $_profitBricksApi): mixed
     {
-        $authorisation = base64_encode($this->user.":".$this->password);
         $curl = curl_init($_profitBricksApi);
         curl_setopt($curl, CURLOPT_HTTPGET, true);
         curl_setopt($curl, CURLOPT_HEADER, true);
         curl_setopt($curl, CURLOPT_SSLVERSION, 6);  // forcing TLS 1.2 can lead to issues, but we should avoid sending a password unencrypted.
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic $authorisation"));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array($this->authenticationString()));
         if (curl_exec($curl))
         {
             $response = curl_multi_getcontent($curl);
@@ -199,7 +212,7 @@ class ProfitBricksApi
         curl_setopt($curl, CURLOPT_HEADER, true);
         curl_setopt($curl, CURLOPT_SSLVERSION, 6);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic $authorisation","Content-Type: application/x-www-form-urlencoded"));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array($this->authenticationString(),"Content-Type: application/x-www-form-urlencoded"));
         curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
         if (curl_exec($curl))
         {
@@ -237,13 +250,12 @@ class ProfitBricksApi
     public function deleteSnapshot(string $_snapShotId): bool
     {
         $api = str_replace("{snapshot-id}", $_snapShotId, self::profitBricksDeleteSnapshot);
-        $authorisation = base64_encode($this->user.":".$this->password);
         $curl = curl_init($api);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
         curl_setopt($curl, CURLOPT_HEADER, true);
         curl_setopt($curl, CURLOPT_SSLVERSION, 6);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic $authorisation"));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array($this->authenticationString()));
         if (curl_exec($curl))
         {
             $response = curl_multi_getcontent($curl);
@@ -303,13 +315,12 @@ class ProfitBricksApi
         else throw new Exception("Wrong state in calling this method.");
         $api = str_replace("{dataCenterId}", $_dataCenterId, $api);
         $api = str_replace("{serverId}", $_serverId, $api);
-        $authorisation = base64_encode($this->user.":".$this->password);
         $curl = curl_init($api);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_HEADER, true);
         curl_setopt($curl, CURLOPT_SSLVERSION, 6);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic $authorisation"));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array($this->authenticationString()));
         if (curl_exec($curl))
         {
             $response = curl_multi_getcontent($curl);
@@ -341,5 +352,14 @@ class ProfitBricksApi
     public function setPassword(string $_password): void
     {
         $this->password = $_password;
+    }
+
+    /**
+     * @param string $_token
+     * @return void
+     */
+    public function setToken(string $_token): void
+    {
+        $this->token = $_token;
     }
 }

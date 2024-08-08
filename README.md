@@ -71,9 +71,9 @@ Multiple runs of auto creation per day can destroy the notification. So don't do
 ##### Docker Command
 ```
 docker run --rm -it --name pbst -h pbst \
-  -v config:/etc/pbst \
-  -v data:/var/opt/pbst \
-  -v log:/var/log \
+  -v $(pwd)/config:/etc/pbst \
+  -v $(pwd)/data:/var/opt/pbst \
+  -v $(pwd)/log:/var/log \
   cnconsult/pbst:1.0 <command>
 ```
 Command is on of `snapshot:list`, `server:list`, ...
